@@ -1,0 +1,1575 @@
+\documentclass[journal ]{new-aiaa}
+%\documentclass[conf]{new-aiaa} for conference papers
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\setlength\LTleft{0pt} 
+
+\usepackage{tikz} 
+\usepackage{tikz-qtree}
+\usetikzlibrary{trees}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta, calc, quotes}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{makecell}
+
+\usepackage[export]{adjustbox}
+
+\usepackage{multirow}
+
+\usetikzlibrary{calc}
+
+\DeclareRobustCommand{\AlphaCaption}[1]{%
+  \ensuremath{\boldsymbol{\alpha}\mathbf{=#1}^{\boldsymbol{\circ}}}%
+}
+\DeclareRobustCommand{\DeltaCaption}[1]{%
+  \ensuremath{\boldsymbol{\delta}\mathbf{=#1}^{\boldsymbol{\circ}}}%
+}
+\DeclareRobustCommand{\GammaCaption}[1]{%
+  \ensuremath{\boldsymbol{\Gamma}\mathbf{=#1}^{\boldsymbol{\circ}}}%
+}
+
+\DeclareRobustCommand{\AlphaSimple}[1]{%
+  \ensuremath{\alpha=#1^\circ}%
+}
+\DeclareRobustCommand{\DeltaSimple}[1]{%
+  \ensuremath{\delta=#1^\circ}%
+}
+\DeclareRobustCommand{\GammaSimple}[1]{%
+  \ensuremath{\Gamma=#1^\circ}%
+}
+
+\DeclareRobustCommand{\DeltaIn}[2]{
+    \ensuremath{\delta \in [#1^\circ, #2^\circ]}
+}
+
+% Include an image and draw masking rectangles over it.
+% Coordinates are normalized:
+% x = 0 left, x = 1 right
+% y = 0 bottom, y = 1 top
+\newcommand{\MaskedImage}[3][]{%
+\begin{tikzpicture}
+    \node[anchor=south west, inner sep=0] (img) at (0,0)
+        {\includegraphics[#1]{#2}};
+    \begin{scope}[x={(img.south east)}, y={(img.north west)}]
+        #3
+    \end{scope}
+\end{tikzpicture}%
+}
+
+% Rectangle from lower-left corner (x1,y1) to upper-right corner (x2,y2)
+\newcommand{\maskrect}[5][white]{%
+    \fill[#1] (#2,#3) rectangle (#4,#5);
+}
+
+% Rectangle using lower-left corner plus width and height
+\newcommand{\maskrectwh}[5][white]{%
+    \pgfmathsetmacro{\xr}{#2 + #4}
+    \pgfmathsetmacro{\yt}{#3 + #5}
+    \fill[#1] (#2,#3) rectangle (\xr,\yt);
+}
+
+% Rectangle using top-left corner plus width and height
+% Useful if you think in image-editor coordinates.
+\newcommand{\maskrecttl}[5][white]{%
+    \pgfmathsetmacro{\xr}{#2 + #4}
+    \pgfmathsetmacro{\yb}{1 - (#3 + #5)}
+    \pgfmathsetmacro{\yt}{1 - #3}
+    \fill[#1] (#2,\yb) rectangle (\xr,\yt);
+}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+
+
+
+\title{Multi-fidelity characterization of a positively swept tailplane with full-span control surface}
+
+\author{Andrea Rausa\footnote{PhD, Department of Aerospace Science and Technology, Corresponding Author, andrea.rausa@polimi.it}, Giulio Gori\footnote{Associate Professor, Department of Aerospace Science and Technology}, Alex Zanotti \footnote{Associate Professor, Department of Aerospace Science and Technology}, Giuseppe Gibertini \footnote{Associate Professor, Department of Aerospace Science and Technology}, Alberto Guardone \footnote{Full Professor, Department of Aerospace Science and Technology}, and Franco Auteri \footnote{Full Professor, Department of Aerospace Science and Technology}}
+\affil{Politecnico di Milano, Department of Aerospace Science and Technology, Milano, Italy, 20154}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This work presents a multi-fidelity numerical--experimental investigation of a positively swept, zero-dihedral tailplane equipped with a full-span trailing-edge control surface.
+Wind-tunnel measurements are compared with a nonlinear lifting-line model and three-dimensional Reynolds-averaged Navier-Stokes simulations over angles of attack from \(-26^\circ\) to \(26^\circ\) and control-surface deflections from \(0^\circ\) to \(34^\circ\).
+The analysis is organized by aerodynamic regime to distinguish attached flow, control-surface separation, main-surface stall, and post-stall behavior.
+Both numerical methods reproduce the main lift trends in attached and weakly nonlinear conditions, but the lifting-line model shows increasing discrepancies in pitching moment, control effectiveness, and separated-flow regimes.
+The Reynolds-averaged Navier-Stokes simulations provide a more consistent description of the separated-flow topology, although they predict a stall onset sharper than observed experimentally.
+Surface-flow visualizations show that the experimental maximum-lift condition is reached through a progressive development of separation, whereas the simulated flow remains largely attached up to the predicted maximum-lift state, and then separate abruptly.
+The resulting comparison defines the regimes in which each fidelity level remains informative and identifies the modeling assumptions that limit their accuracy for unconventional swept tailplanes with full-span control surfaces.
+\end{abstract}
+
+
+
+
+
+
+
+\section{Introduction}
+\label{sec:introduction}
+
+The horizontal tailplane contributes directly to aircraft stability, controllability, maneuvering capability, and trim. 
+Its aerodynamics must therefore be predicted with sufficient accuracy across a broad range of angles of attack and considering all possible control-surface deflections.
+This also includes predicting aerodynamics outside the nominal linear operating range. 
+The challenge becomes extremely complex in case of advanced rear-end architectures, for which structural, propulsive-integration, or packaging constraints may require an unconventional tailplane geometry.
+
+\blue{Prima:}
+In preliminary design, the aerodynamic behavior of a horizontal tail is approximated using linear stability and control derivatives \red{in che senso linear stability e control dev?}. 
+Namely, the effect of the movable surface is described through an approximately constant lift or pitching-moment derivative with respect to control deflection \red{anche qua mi pare confuso}. 
+Although this representation is effective at small incidence and small deflection, its validity deteriorates when the pressure recovery over the control surface produces substantial boundary-layer deceleration or separation. 
+
+\blue{Dopo:}
+In preliminary design, the aerodynamic response of a horizontal tail is often reduced to linearized derivatives with respect to incidence and control-surface deflection, such as \(C_{L_\alpha}\), \(C_{M_\alpha}\), \(C_{L_\delta}\), and \(C_{M_\delta}\).
+This representation assumes that the lift and pitching-moment increments produced by the movable surface are nearly proportional to the imposed deflection around a reference operating condition.
+Although this approximation is effective at small incidence and small deflection, its validity deteriorates when the pressure recovery over the control surface produces substantial boundary-layer deceleration or separation.
+
+A full-span trailing-edge control surface can be particularly sensitive to this behavior because its deflection changes the effective camber and pressure distribution along the complete tailplane span. 
+Control-surface separation may consequently alter the global lift and pitching moment before the main lifting surface reaches its conventional stall condition.
+
+Classical wind tunnel investigations of horizontal tails established the principal effects of sweep, aspect ratio, taper, and elevator deflection on lift, pitching moment, control effectiveness, and hinge moment~\citep{Dods1948}. 
+Broader experimental studies of swept-back, swept-forward, and yawed wings also demonstrated that planform geometry modifies the spanwise circulation distribution and the progression of stall~\citep{PurserSpearman1951}. 
+These investigations provide a fundamental basis for interpreting swept-tail aerodynamics, but their configurations, airfoil sections, Reynolds numbers, and measurement techniques differ from those relevant to contemporary numerical validation studies.
+
+Sweep affects both the inviscid loading and the boundary-layer development of a finite lifting surface. 
+The component of the external flow parallel to the leading edge produces spanwise transport and can modify the local separation behavior at the root and tip. 
+The resulting stall progression cannot, in general, be inferred directly from the two-dimensional characteristics of the sectional profile. 
+When a control surface is deflected, the interaction between sweep-induced crossflow and the adverse pressure gradient downstream of the hinge line introduces a further source of three-dimensionality. 
+The aerodynamic effectiveness of the control surface may therefore depend on incidence, spanwise position, and deflection amplitude rather than being represented by a single constant derivative.
+
+Low-order aerodynamic methods remain indispensable during conceptual and preliminary design because they permit large geometrical and operating spaces to be investigated at limited computational cost. 
+Classical lifting-line theory represents a finite lifting surface through a spanwise distribution of bound circulation and the associated trailing-vortex system. 
+The original linear formulation is best suited to slender lifting surfaces operating in attached flow. 
+Its range of applicability was extended by introducing nonlinear sectional aerodynamic data, allowing the local section response to approach maximum lift and stall~\citep{SivellsNeely1947}.
+
+Subsequent lifting-line and vortex-based formulations have incorporated sweep, taper, twist, nonplanar geometry, viscous sectional data, and unsteady effects. 
+Nonlinear iterative procedures determine the local effective incidence from the interaction between the sectional aerodynamic characteristics and the induced velocity field~\citep{SugarGabor2018,ReidHunsaker2021}. 
+Sweep-corrected and quasi-three-dimensional formulations have also been proposed to account approximately for the differences between two-dimensional sectional behavior and the response of a finite swept wing~\citep{GallayGhasemiLaurendeau2014,GoitiaLlamas2019}.
+
+Despite these developments, the predictive capability of a nonlinear lifting-line model remains tied to the validity of its sectional closure. 
+Locally applied airfoil polars cannot explicitly reproduce spanwise boundary-layer transport, junction flow, tip-vortex interaction, or changes in the topology of strongly separated flow. 
+Moreover, using two-dimensional post-stall characteristics may introduce an incorrect separation onset or an inaccurate redistribution of loading along the span. 
+A model can therefore reproduce an integrated lift coefficient while retaining significant errors in the local loading or pitching moment. 
+Establishing the operating range over which the sectional approximation remains adequate is consequently an important part of the validation of such methods.
+
+Reynolds-averaged Navier--Stokes methods provide a higher level of physical resolution while retaining a computational cost compatible with systematic aerodynamic analysis. 
+RANS simulations resolve the three-dimensional pressure and mean boundary-layer fields and permit the surface loading and separated-flow topology to be examined in detail. 
+Their reliability is generally strongest in attached and mildly separated flow.
+Close to the stall, the predicted onset and extent of separation may depend strongly on turbulence closure, laminar-to-turbulent transition modeling, grid resolution, boundary conditions, and the assumption that the flow can be represented by a steady mean solution.
+
+A meaningful comparison of RANS calculations with wind tunnel measurements must also distinguish model-form error from differences between the numerical and experimental configurations. 
+The computational model should reproduce the experimental geometry, Reynolds and Mach numbers, control setting, boundary-layer state, and relevant tunnel boundaries as closely as possible. 
+Numerical verification and experimental uncertainty must be considered alongside the coefficient differences~\citep{ClarkEtAl2020}. 
+Wind tunnel data are therefore treated in the present study as an uncertainty-characterized experimental validation reference rather than as an error-free ground truth.
+
+The complementary capabilities of experimental measurements, high-fidelity simulations, and low-order aerodynamic models motivate a multi-fidelity approach. 
+In such a framework, the inexpensive model provides broad parameter-space coverage, the higher-fidelity model provides detailed flow information, and the experiment establishes the physical reference against which discrepancies between models can be assessed~\citep{PeherstorferWillcoxGunzburger2018}. 
+The objective is not simply to determine which model best fits the experiment on average, but to identify the aerodynamic regimes in which each modeling assumption remains valid.
+
+The Clean Sky 2 MONNALISA project was established to develop and validate this type of methodology for unconventional lifting surfaces with controls~\cite{auteri2022monnalisa}. 
+The project generated an experimental and numerical database covering variations in sweep, aspect ratio, taper ratio, dihedral, angle of attack, and full-span control-surface deflection. 
+Initial work addressed the numerical comparison of unconventional tail configurations~\citep{RausaEtAl2022}, the experimental characterization of the boundary-layer transition state~\citep{ZanottiEtAl2022}, and the Bayesian calibration of the low-order aerodynamic model~\citep{GoriEtAl2023}.
+
+The structure, methodologies, and contents of the complete MONNALISA database were subsequently documented by~\citet{rausa2026monnalisa}. 
+That study presented the full geometrical parameterization, computational and experimental procedures, database organization, and an initial comparison of the available fidelity levels. 
+The comparison indicated general coherence among the experimental, lifting-line, and RANS data in the approximately linear regime, with increasing discrepancies at large incidence and control deflection. 
+The database paper was intended primarily to document the available resources and did not provide a complete configuration-specific analysis of control effectiveness, separation development, local loading, and numerical model validity.
+
+The present study addresses this gap for the positively swept, zero-dihedral reference tailplane.
+The configuration is investigated over the complete available incidence--deflection space using wind tunnel measurements, a nonlinear lifting-line model, and three-dimensional RANS simulations.
+Particular attention is devoted to the variation of lift and pitching-moment effectiveness with incidence, the onset and development of control-surface separation, the transition to main-surface stall, and the physical origins of disagreement among the fidelity levels.
+
+The principal objectives are to quantify the agreement among the three approaches in the attached, separated, and post-stall regimes; determine when control effectiveness can no longer be represented by constant derivatives; relate changes in the global aerodynamic coefficients to the observed surface-flow topology; and provide a regime-dependent assessment of the range in which each numerical method remains useful.
+The analysis is organized by aerodynamic mechanism rather than by data source, so that experimental, lifting-line, and RANS results are compared directly within each flow regime.
+This structure avoids reducing the comparison to a single global error measure and instead identifies the modeling assumptions that limit each fidelity level.
+
+The remainder of the paper is organized as follows.
+Section~\ref{sec:configuration} defines the selected geometry, operating conditions, and aerodynamic quantities.
+The experimental and numerical methods are summarized in Sec.~\ref{sec:methodology}, with detailed derivations and database procedures referred to the preceding MONNALISA publication.
+Section~\ref{sec:results} presents the multi-fidelity comparison, the analysis of the governing flow mechanisms, and the regime-dependent assessment of the numerical methods.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Model Specification}
+\label{sec:configuration}
+
+\subsection{Tailplane geometry}
+\label{sec:geometry}
+
+We consider the positively swept reference tailplane of the MONNALISA database \red{REFERENCE} with zero dihedral. 
+Namely, a low-aspect-ratio trapezoidal wing with a quarter-chord sweep of $30^\circ$, an aspect ratio of $5$, and a taper ratio of $0.4$. 
+In the adopted convention, positive sweep indicates that the tip is located downstream of the root. 
+The semispan is $1.6~\mathrm{m}$, the reference area is $1.024~\mathrm{m^2}$, and the mean aerodynamic chord is $0.679184~\mathrm{m}$.
+
+The sectional geometry \red{cioè l'airfoil?} is symmetric and remains geometrically similar along the span. 
+Its maximum thickness is $9\%$ of the local chord. 
+A control surface is located at the trailing edge and it extends over the complete semispan.
+The control surface rotates about a hinge located at $70\%$ of the local chord. 
+The control surface dimension is therefore $30\%$ of the local tailplane chord. 
+The discrete control settings considered in the aerodynamic campaign are \(\delta \in \{0^\circ,10^\circ,20^\circ,30^\circ,34^\circ\}\).
+%
+Positive control deflection corresponds to the trailing edge rotating downward. The geometrical parameters and the sign conventions are illustrated in Fig.~\ref{figure:PlanformDefinition}.
+%
+\input{LongFigure_1}
+%
+The pitching moment is considered positive nose up.
+%
+%
+% \begin{table}[htbp]
+% \centering
+% \caption{Principal geometrical parameters of the investigated
+% tailplane.}
+% \label{tab:geometry}
+% \begin{tabular}{lccc}
+% \hline
+% \hline
+% Parameter & Symbol & Value & Unit 
+% \\
+% \hline
+% Quarter-chord sweep angle
+% & $\lambda$ & $30.0$ & deg 
+% \\
+% Dihedral angle
+% & $\Gamma$ & $0.0$ & deg 
+% \\
+% Aspect ratio
+% & $AR$ & $5.0$ & -- 
+% \\
+% Taper ratio
+% & $\tau$ & $0.4$ & -- 
+% \\
+% Model semispan
+% & $b_s$ & $1.6$ & m 
+% \\
+% Reference area
+% & $S_{\mathrm{ref}}$ & $1.024$ & m$^2$ 
+% \\
+% Mean aerodynamic chord
+% & $\bar{c}$ & $0.679184$ & m 
+% \\
+% Thickness-to-chord ratio
+% & $t/c$ & $0.09$ & -- 
+% \\
+% Hinge-line position
+% & $x_h/c$ & $0.70$ & -- 
+% \\
+% Control-surface span ratio
+% & $b_{\mathrm{cs}}/b_s$ & $1.0$ & -- 
+% \\
+% \hline
+% \hline
+% \end{tabular}
+% \end{table}
+%
+%
+%
+The aerodynamic coefficients are defined as
+%
+\begin{equation}
+C_L =
+\frac{L}{q_\infty S_{\mathrm{ref}}},
+\qquad
+C_D =
+\frac{D}{q_\infty S_{\mathrm{ref}}},
+\qquad
+C_m =
+\frac{M_y}
+{q_\infty S_{\mathrm{ref}}\bar{c}},
+\label{eq:aero_coefficients}
+\end{equation}
+%
+where $q_\infty$ is the freestream dynamic pressure. 
+The pitching moment is evaluated about the aerodynamic reference point derived from the undeflected configuration in the approximately linear incidence range.
+For each dataset, this reference point is retained for all control-surface settings so that changes in \(C_m\) reflect changes in the aerodynamic loading rather than changes in the moment origin.
+
+The nondimensional spanwise coordinate is defined as
+%
+\begin{equation}
+\eta = \frac{y}{b_s},
+\qquad
+0 \leq \eta \leq 1,
+\label{eq:span_coordinate}
+\end{equation}
+%
+with $\eta=0$ at the model root and $\eta=1$ at the tip.
+
+
+
+
+
+\subsection{Operating conditions and test matrix}
+\label{sec:operating_conditions}
+
+The wind tunnel and numerical datasets were generated at matched nominal freestream conditions \red{cosa intendi per matched?} \blue{Che freestream in WT e simulazioni corrispondono, sia in Reynolds che in Mach}. 
+The Mach number is $M_\infty=0.147$, and the Reynolds number based on model semispan is
+%
+\begin{equation}
+Re_{b_s}
+=
+\frac{\rho_\infty V_\infty b_s}
+{\mu_\infty}
+=
+5.5\times10^6.
+\label{eq:reynolds}
+\end{equation}
+%
+The nominal freestream temperature is $300~\mathrm{K}$, and the wind tunnel turbulence intensity is lower than $0.1\%$.
+
+The angle of attack ranges from $-26^\circ$ to $26^\circ$ in increments of $2^\circ$. This range includes the attached linear regime, control-surface separation, main-surface stall, and deep post-stall conditions. 
+% The complete nominal test matrix is summarized in Table~\ref{tab:test_matrix}.
+
+% \begin{table}[htbp]
+% \centering
+% \caption{Nominal operating conditions and investigated variables.}
+% \label{tab:test_matrix}
+% \begin{tabular}{lcc}
+% \hline
+% \hline
+% Quantity & Value or range & Increment 
+% \\
+% \hline
+% Mach number, $M_\infty$
+% & $0.147$ & -- 
+% \\
+% Semispan Reynolds number, $Re_{b_s}$
+% & $5.5\times10^6$ & -- 
+% \\
+% Freestream temperature, $T_\infty$
+% & $300~\mathrm{K}$ & -- 
+% \\
+% Turbulence intensity, $TI_\infty$
+% & $\leq 0.1\%$ & -- 
+% \\
+% Angle of attack, $\alpha$
+% & $[-26^\circ,26^\circ]$ & $2^\circ$ 
+% \\
+% Control deflection, $\delta$
+% & ${0^\circ,10^\circ,20^\circ,30^\circ,34^\circ}$
+% & discrete 
+% \\
+% Dihedral angle, $\Gamma$
+% & $0^\circ$ & -- 
+% \\
+% \hline
+% \hline
+% \end{tabular}
+% \end{table}
+
+Although the global aerodynamic coefficients are available throughout the test matrix, the surface-flow and boundary-layer diagnostics are available only at selected operating conditions.
+The diagnostic data are therefore discussed only for the operating points at which they are available.
+
+
+
+
+
+
+
+
+
+
+
+\section{Experimental and Numerical Methodology}
+\label{sec:methodology}
+
+The experimental and numerical data analyzed in the present work form part of the MONNALISA database. Detailed descriptions of the complete test campaign, numerical formulations, grid-generation procedure, wind tunnel corrections, and database organization are provided by \citet{rausa2026monnalisa}. The present section summarizes the information required to interpret the configuration-specific comparison and emphasizes the assumptions that affect the validation results.
+
+\subsection{Wind Tunnel Experiments}
+\label{sec:wind_tunnel}
+
+The experiments were performed in the Low Turbulence Test Section of the large closed-circuit wind tunnel at Politecnico di Milano. The effective test section was approximately $4~\mathrm{m}$ wide, $3.49~\mathrm{m}$ high, and $6~\mathrm{m}$ long. A dummy floor was installed to enclose the model support, the aerodynamic balance, and the control-surface actuation mechanism. The tailplane was mounted as a vertical semispan model, and the angle of attack was varied by rotating the base of the supporting frame.
+
+The maximum test-section velocity is approximately $55~\mathrm{m,s^{-1}}$, and the freestream turbulence intensity is below $0.1\%$. Measurements of the total-pressure distribution showed variations within approximately $0.5\%$ of the dynamic pressure over most of the test section and below approximately $1\%$ elsewhere outside the wall boundary layers. The chamber is slightly divergent to compensate for boundary-layer growth, leaving a small residual streamwise static-pressure gradient.
+
+The aerodynamic forces and moments were measured using an RUAG 767 strain-gauge balance installed beneath the dummy floor. The balance measured the loads acting on the complete semispan model. Freestream velocity, absolute pressure, temperature, and humidity were recorded simultaneously and used during the reduction of the aerodynamic coefficients. The measured loads were transformed from the balance reference system to the wind-axis system before comparison with the numerical results.
+
+The pitching moment was evaluated about the aerodynamic reference point of the mean aerodynamic chord. The position of this point was determined from the approximately linear variation of force and moment with incidence for the undeflected configuration and was subsequently kept fixed for all values of $\delta$. This procedure allows the control-induced change in pitching moment to be compared consistently among the experimental and numerical datasets.
+
+The measured data were corrected for horizontal buoyancy, solid blockage, wake blockage, and the modification of the effective angle of attack produced by the test-section boundaries. The complete correction procedure is reported by \citet{rausa2026monnalisa} and follows standard low-speed wind tunnel practice \citep{barlow1999low}. The present analysis uses the corrected aerodynamic coefficients and corrected angle of attack.
+
+The experimental error bars supplied with the database correspond to one standard deviation of the acquired signals. They contain the short-time measurement variability and the influence of load fluctuations during the acquisition interval. They are not, by themselves, a complete uncertainty budget including all systematic contributions from balance calibration, model alignment, incidence setting, control-angle setting, and tunnel corrections. They are therefore referred to in this work as experimental variability or repeatability intervals unless an expanded uncertainty analysis is introduced.
+
+Surface-flow visualization and infrared thermography are available for selected operating conditions. 
+The thermographic measurements were primarily used to identify changes in the boundary-layer state over the root, midspan, and tip regions. 
+Surface-flow images provide complementary information on separation and spanwise flow. 
+Only diagnostics corresponding to the steady operating conditions included in the aerodynamic comparison are used in the present work.
+Dynamic PIV measurements associated with oscillating control-surface motion are outside the scope of the present steady study.
+
+A relevant difference between the experimental and numerical configurations occurs at the model root. In the wind tunnel, the root region is immersed in the boundary layer developing over the dummy floor. In the RANS calculations, the corresponding plane is represented using a symmetry boundary condition. This difference is expected to have a limited effect on the attached flow but can influence the inboard movement and spanwise extent of separated structures. It is therefore treated explicitly when interpreting the post-stall results.
+
+
+\subsection{Nonlinear lifting-line model}
+\label{sec:lifting_line}
+
+The low-order predictions were obtained using the nonlinear lifting-line model implemented in DUST \citep{TUGNOLI2021106804}. A one-dimensional spanwise distribution of bound circulation represents the lifting surface. The trailing vortex system induces a velocity field that modifies the local effective incidence at each lifting-line element.
+
+For a generic spanwise position, the effective incidence may be expressed as
+%
+\begin{equation}
+\alpha_{\mathrm{eff}}(\eta)
+=
+\alpha_{\mathrm{geom}}(\eta)
+-
+\alpha_{\mathrm{ind}}(\eta),
+\label{eq:effective_incidence}
+\end{equation}
+%
+where $\alpha_{\mathrm{ind}}$ results from the velocity induced by the complete circulation and wake system. The local aerodynamic coefficients are obtained from tabulated sectional characteristics of the form
+%
+\begin{equation}
+\left\{
+c_l,c_d,c_m
+\right\}
+=
+\mathcal{F}
+\left(
+\alpha_{\mathrm{eff}},
+Re,
+M,
+\delta
+\right).
+\label{eq:sectional_closure}
+\end{equation}
+
+The tabulated characteristics are obtained from C81 lookup tables generated by two-dimensional RANS calculations of the sectional profile. Separate sectional geometries and polars are used for the different control-surface deflections. Control deflection is therefore represented through the aerodynamic response of the deflected profile rather than through a prescribed linear control-effectiveness factor.
+
+The circulation distribution is determined using the nonlinear $\Gamma$ method by enforcing consistency between the sectional aerodynamic data and the Kutta--Joukowski relation. Iterations continue until the circulation distribution, induced incidence, and local sectional loads are mutually consistent.
+
+Because the tailplane is swept, the two-dimensional sectional characteristics are modified using the quasi-three-dimensional correction proposed by \citet{GoitiaLlamas2019}. The correction combines the conventional transformation of the sectional data with a span-dependent modification of the effective sweep:
+%
+\begin{equation}
+\lambda_{\mathrm{eff}}(\eta)
+=
+\lambda_{\mathrm{loc}}(\eta)
+\kappa(\eta),
+\label{eq:effective_sweep}
+\end{equation}
+%
+where $\kappa(\eta)$ includes separate empirical contributions in the root and tip regions. The detailed functional form and its implementation in the MONNALISA model are documented by \citet{rausa2026monnalisa} and are not repeated here.
+
+The lifting-line solution provides global aerodynamic coefficients and spanwise distributions of circulation and sectional loads at a small computational cost. It does not resolve the boundary-layer field or the three-dimensional topology of separated flow. Its ability to reproduce control-surface stall and main-surface separation depends on the sectional polars and on the extent to which the sweep correction represents the actual spanwise redistribution of loading. These limitations are central to the comparison developed in Sec.~\ref{sec:results}.
+
+\subsection{Reynolds-averaged Navier-Stokes model}
+\label{sec:rans}
+
+The higher-fidelity numerical predictions were obtained using the SU2 open-source computational framework \citep{palacios2013stanford}. The steady compressible RANS equations were discretized by means of a vertex-centered finite-volume method on an unstructured median-dual grid.
+
+Convective fluxes were evaluated using the Roe approximate Riemann solver. Second-order spatial accuracy was achieved using MUSCL reconstruction, and a Venkatakrishnan limiter was applied to reduce spurious oscillations in regions with strong solution gradients. The equations were advanced toward a steady solution using an implicit pseudo-time-integration procedure.
+
+Turbulence closure was provided by the Spalart--Allmaras one-equation model \citep{spalart1992sa}. Laminar-to-turbulent transition was represented using the algebraic Bas--Cakmakcioglu formulation \citep{cakmakcioglu2020bcm}. The use of a transition-sensitive model is relevant because the infrared measurements indicate that the boundary-layer state varies with incidence and spanwise position \citep{ZanottiEtAl2022}.
+
+The tailplane surface was modeled as an adiabatic no-slip wall. Freestream conditions were imposed on the external farfield boundaries, while the model root was represented as a symmetry plane. The root symmetry condition omits the boundary layer developing over the wind tunnel floor and constitutes a known difference between the RANS and experimental configurations.
+
+The computational meshes were generated using an automated procedure based on a parametric CAD representation and Pointwise. Anisotropic surface elements were used near the leading edge and control-surface junction, while a hex-dominant octree-based volume mesh was used away from the wall. Additional refinement was introduced near the tail tip and along an incidence-dependent wake region. Near-wall layers were constructed to resolve the boundary layer consistently with the turbulence and transition models.
+
+A four-level mesh study was previously performed for representative attached and separated conditions. For the zero-dihedral geometry, the nominal meshes contained approximately $10$--$13$ million grid points, depending on incidence, while the finest meshes contained up to approximately $65$ million points. Changes in the integrated lift and drag coefficients relative to the finest meshes remained below approximately $4\%$, although strictly monotonic convergence was not obtained in every case. Since the present work uses the same numerical solutions, the existing grid study is referenced rather than repeated \citep{rausa2026monnalisa}.
+
+Convergence was monitored using the mean variation of the lift and drag coefficients over a prescribed iteration window:
+
+%
+\begin{equation}
+\Delta C_i
+=
+\frac{1}{N_w}
+\sum_{j=N-N_w+1}^{N}
+\left|
+C_{i,j}-C_{i,j-1}
+\right|,
+\qquad
+i\in\{L,D\}.
+\label{eq:load_convergence}
+\end{equation}
+%
+A calculation was classified as converged when both load variations were below $3\times10^{-6}$. 
+In the separated and post-stall regimes, a small residual or mean load increment does not, by itself, demonstrate that a steady RANS solution is physically representative of an experimentally unsteady flow.
+The post-stall RANS results are therefore interpreted primarily in terms of mean load levels and a qualitatively separated-flow topology.
+
+% \begin{table}[htbp]
+% \centering
+% \caption{Summary of the RANS formulation.}
+% \label{tab:rans_setup}
+% \begin{tabular}{ll}
+% \hline
+% \hline
+% Item & Setting 
+% \\
+% \hline
+% Solver & SU2 [insert version or commit] 
+% \\
+% Governing equations & Steady compressible RANS 
+% \\
+% Spatial formulation & Vertex-centered finite volume 
+% \\
+% Convective flux & Roe scheme 
+% \\
+% Reconstruction & Second-order MUSCL 
+% \\
+% Limiter & Venkatakrishnan 
+% \\
+% Turbulence model & Spalart--Allmaras 
+% \\
+% Transition model & Bas--Cakmakcioglu 
+% \\
+% Wall condition & Adiabatic no-slip 
+% \\
+% Root condition & Symmetry plane 
+% \\
+% Farfield condition & Freestream 
+% \\
+% Nominal grid size & Approximately $10$--$13$ million points 
+% \\
+% Load-convergence tolerance & $3\times10^{-6}$ 
+% \\
+% \hline
+% \hline
+% \end{tabular}
+% \end{table}
+
+\subsection{Basis of the multi-fidelity comparison}
+\label{sec:comparison_basis}
+
+The experimental, lifting-line, and RANS data are compared at nominally identical values of angle of attack, control deflection, Mach number, and Reynolds number. 
+The same reference area, mean aerodynamic chord, and sign conventions are used for all three datasets.
+For each dataset, the pitching moment is evaluated about the aerodynamic center estimated from the undeflected configuration in the approximately linear incidence range.
+The same moment origin is then retained within that dataset for all control-surface deflections.
+
+The comparison uses the corrected experimental angle of attack, the same sign convention for control-surface deflection and pitching moment, and the realized maximum control-surface setting of \(\delta=34^\circ\).
+Missing or nonstationary numerical conditions are excluded from quantitative comparisons.
+No interpolation is performed across abrupt stall transitions, and experimental variability, numerical discretization error, and model-form discrepancy are treated as distinct sources of uncertainty.
+
+
+
+\section{Results and Discussion}
+\label{sec:results}
+
+The results are organized by increasing aerodynamic complexity, starting from the undeflected configuration and then introducing the effects of control-surface deflection.
+The undeflected case is first used to establish the baseline behavior of the positively swept tailplane and to assess the numerical models' ability to reproduce the attached-flow, stall, and post-stall regimes.
+The subsequent subsections examine the effect of control deflection on global loads, the corresponding control effectiveness, and the flow mechanisms responsible for discrepancies among fidelity levels.
+
+\subsection{Baseline aerodynamics of the undeflected tailplane}
+\label{sec:baseline_results}
+
+
+The undeflected configuration, $\delta=0^\circ$, provides the reference aerodynamic behavior of the positively swept tailplane in the absence of control-surface-induced separation.
+This case is therefore used to assess the intrinsic effect of sweep on the aerodynamic coefficients and to identify the baseline limitations of the lifting-line and RANS models before considering nonzero control deflections.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{ClCdCm_ExpvsNum_OnlyRef_Delta_0.pdf}
+    \caption{Comparison between wind tunnel, RANS, and DUST lifting-line aerodynamic coefficients for the reference configuration at $\delta = 0^\circ$.}
+    \label{fig:Coefficients:ExpvsNum:Delta0}
+\end{figure}
+
+Figure~\ref{fig:Coefficients:ExpvsNum:Delta0} compares the wind tunnel, RANS, and DUST lifting-line aerodynamic coefficients for the undeflected configuration, $\delta=0^\circ$.
+Since the airfoil section is symmetric and the control surface is undeflected, the aerodynamic response is expected to be nearly antisymmetric in lift and pitching moment and nearly symmetric in drag with respect to incidence reversal.
+
+Starting from the lift coefficient, two main regimes can be identified: an approximately linear attached-flow regime and a nonlinear stall/post-stall regime.
+The linear regime extends approximately over $-10^\circ \leq \alpha \leq 10^\circ$, where both numerical approaches are in good agreement with the experimental data.
+For $\lvert \alpha \rvert > 10^\circ$, all curves exhibit a visible change in trend, although the transition from attached to separated flow differs between the experiments and the numerical predictions.
+The experimental data show a gradual reduction of the lift-curve slope, indicating a progressive evolution from a predominantly attached state toward a fully separated flow.
+Conversely, both numerical approaches predict a sharper change in slope, associated with a more abrupt modification of the pressure distribution over the lifting surface.
+
+Among the two numerical approaches, only the RANS simulations reproduce the characteristic post-stall behavior of a positively swept lifting surface, namely the retention of a significant lift level even in deep-stall conditions.
+This behavior is associated with the persistence of a coherent vortical structure over the suction side of the surface, which delays the collapse of the suction contribution and helps maintain lift~\cite{harper1964sweptstall}.
+The oscillations observed in the lifting-line prediction in the deep-stall regime are consistent with the difficulty of obtaining a converged sectional-data-based solution when several spanwise stations operate in post-stall conditions.
+Nevertheless, the predicted lift levels remain of the correct order of magnitude and follow the overall trend of the other datasets.
+
+The main features of the lift curves are quantified in Table~\ref{tab:Delta0:AerodynChar}.
+The stall lift coefficient, $C_{L,S}$, is here defined as the value of $C_L$ at the incidence where the lift-curve slope changes markedly.
+The corresponding incidence is denoted by $\alpha_S$.
+The maximum lift coefficient, $C_{L,\max}$, and the corresponding incidence, $\alpha_{C_{L,\max}}$, are reported separately because the peak value of $C_L$ does not necessarily coincide with the first marked departure from the attached-flow trend.
+This distinction allows the initial stall onset and the subsequent post-stall lift evolution to be compared independently for the wind tunnel, RANS, and lifting-line data.
+
+\begin{table}[htbp]
+\centering
+\caption{Stall and post-stall aerodynamic characteristics for the lifting-line, RANS, and wind tunnel results at $\delta=0^\circ$.}
+\begin{tabular}{cccc}
+\hline
+\hline
+& Lifting line & RANS & Wind tunnel \\
+\hline
+$C_{L,S}$ & 0.7210 & 0.7875 & $0.7195\pm0.0160$ \\
+$\alpha_{S}$ & $12^\circ$ & $12^\circ$ & $12^\circ$ \\
+$C_{L,\max}$ & 0.8022 & 0.7875 & $0.8219\pm0.0226$ \\
+$\alpha_{C_{L,\max}}$ & $24^\circ$ & $12^\circ$ & $20^\circ$ \\
+\hline
+\hline
+\end{tabular}
+\label{tab:Delta0:AerodynChar}
+\end{table}
+
+According to the adopted slope-change criterion, the first departure from the attached-flow trend is identified at \(\alpha_S=12^\circ\) for all datasets.
+This value should be interpreted as the onset of detectable nonlinear behavior rather than as the incidence of maximum lift.
+At this incidence, the lifting-line prediction is in close agreement with the wind tunnel value of $C_{L,S}$, whereas the RANS solution overpredicts it.
+This difference is consistent with the sharper stall transition predicted by the RANS simulations, in which the lift curve departs abruptly from the attached-flow trend.
+
+The maximum lift coefficient provides a complementary indication of the post-stall behavior.
+The experimental data reach $C_{L,\max}=0.8219$ at $\alpha=20^\circ$, showing that the lift continues to increase after the initial stall onset.
+The lifting-line model predicts a comparable maximum lift, although it occurs later, at $\alpha=24^\circ$.
+The RANS simulations instead reach their maximum value already at $\alpha=12^\circ$, because the initial slope break coincides with the peak of the computed lift curve.
+Despite this difference in the predicted incidence of maximum lift, the RANS results reproduce the qualitative post-stall behavior of the positively swept configuration more consistently, namely, the retention of a significant lift level after stall.
+The lifting-line method provides reasonable integrated lift levels but exhibits a less regular post-stall evolution, reflecting the difficulty of obtaining a robust sectional-data-based solution when large portions of the span operate beyond stall.
+
+The drag coefficient confirms the overall consistency of the numerical predictions with the experimental data.
+The attached-flow region is clearly identifiable also from the drag curve and is again associated with $\lvert\alpha\rvert \leq 10^\circ$.
+The RANS simulations provide the closest agreement over the full incidence range, particularly in the attached-flow regime.
+However, the RANS curve appears to delay the departure from the attached-flow trend up to approximately $\alpha=12^\circ$, suggesting that the onset of separation is predicted slightly later than in the experiment.
+Conversely, the lifting-line results show a marked change in the drag trend already around $\alpha=8^\circ$, indicating an earlier onset of separation in the underlying sectional response.
+As the absolute incidence increases, the agreement with the experimental drag remains acceptable, although the lower-fidelity prediction progressively departs from the measurements and exhibits an oscillatory behavior consistent with that observed in the lift curve.
+
+The pitching-moment coefficient shows larger discrepancies than the lift and drag coefficients.
+The streamwise coordinate of the aerodynamic center, $x_{AC}$, computed with respect to the leading edge at the root, is reported in Table~\ref{tab:Delta0:AC} for each dataset.
+The first differences already appear in the aerodynamic-center position, with the value from the RANS data closer to the wind tunnel estimate than that from the lifting-line model.
+The moment coefficients for the undeflected configuration are evaluated about the aerodynamic center, which is estimated separately for each dataset.
+This choice removes the linear moment variation by construction and therefore isolates the nonlinear pitching-moment changes associated with stall and post-stall load redistribution.
+For nonzero deflections, however, the same reference point within each dataset is retained so that the effect of control-induced load redistribution can be compared consistently.
+However, as the incidence increases and the flow becomes nonlinear, the numerical pitching-moment curves depart from the experimental ones.
+
+\begin{table}[]
+    \centering
+    \caption{Aerodynamic-center position estimated from the undeflected configuration for the lifting-line, RANS, and wind tunnel datasets.}
+    \begin{tabular}{cccc}
+         \hline
+         \hline
+         & Lifting-line & 3D RANS & Wind Tunnel \\
+         \hline
+         $x_{AC}$ & 0.7027m & 0.6420m & 0.6426m \\
+         \hline
+         \hline
+    \end{tabular}
+    \label{tab:Delta0:AC}
+\end{table}
+
+For the present swept configuration, the variation of pitching moment is governed primarily by the lift distribution and by its position relative to the aerodynamic center, whereas the direct drag contribution is of secondary importance.
+The continuous variation of the experimental $C_{M,y}$ curve in the post-stall regime is consistent with the same mechanism responsible for lift retention.
+Leading-edge separation generates a vortical structure whose locus progressively moves from the tip toward the root.
+This motion modifies the position of the low-pressure region relative to the aerodynamic-center axis and therefore changes the pitching moment while the lift coefficient remains partially sustained.
+In contrast, the numerical results display a sharper variation of $C_{M,y}$, consistent with the more abrupt stall behavior observed in the corresponding lift curves.
+
+To better illustrate this mechanism, Fig.~\ref{fig:FlowTopology:RefDelta0} reports the surface-flow topology obtained from the RANS simulations on the suction side of the tailplane.
+The first row is colored by the local contribution to the lift coefficient per unit surface area, whereas the second row is colored by the local contribution to the pitching-moment coefficient per unit surface area.
+In both rows, the black curves denote skin-friction lines, and the white arrows indicate their direction.
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{1.4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{1cm}}
+\hline
+\hline
+&
+$\boldsymbol{\alpha} \mathbf{ = 12^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = 14^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = 20^\circ}$
+&
+\\
+\hline
+
+\makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{L}}$}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_12_Delta_0_UpperSurface_CL.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_14_Delta_0_UpperSurface_CL.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_20_Delta_0_UpperSurface_CL.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_12_Delta_0_UpperSurface_CL.png}}
+\\
+
+\makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{M,y}}$}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_14_Delta_0_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_20_Delta_0_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png}}
+
+\\
+\hline
+\hline
+\end{tabular}
+\caption{Computed surface-flow topology for the reference planform at $\delta = 0^\circ$ across the pre-stall nonlinear event. The columns correspond to $\alpha = 12^\circ$, $\alpha = 14^\circ$, and $\alpha = 20^\circ$. The upper row reports the lift coefficient per unit surface area $\mathbf{C_{L}}$ with skin-friction lines, while the lower row reports the pitching-moment coefficient per unit surface area $\mathbf{C_{M,y}}$ with the same streamline pattern. The green vertical line represents the Aerodynamic Center Axis.}
+\label{fig:FlowTopology:RefDelta0}
+\end{figure}
+
+At $\alpha=12^\circ$, the flow is still essentially attached over the suction side, although a marked crossflow component toward the trailing edge is visible, as expected for a swept lifting surface.
+When the incidence is increased to $\alpha=14^\circ$, leading-edge separation develops over a large portion of the upper surface.
+This abrupt change in surface topology explains the sudden loss of lift and the corresponding increase in drag predicted by the RANS simulations.
+At $\alpha=20^\circ$, the separated vortical structure remains clearly visible and is located near the leading-edge region.
+Its position relative to the aerodynamic-center axis, shown by the green line in the second row, changes only moderately as the incidence increases.
+Therefore, although the vortical structure provides a positive contribution to $C_{M,y}$, this contribution is partly counterbalanced by the negative moment contribution associated with the massively separated tip region, which has a larger moment arm with respect to the aerodynamic-center axis.
+
+Overall, the undeflected configuration shows that both numerical approaches reproduce the attached-flow aerodynamic behavior with good accuracy.
+The main differences arise at the transition from attached flow to stall, where the experiments exhibit a more progressive evolution than the numerical predictions.
+The RANS simulations capture the lift-retaining post-stall behavior associated with the positively swept planform, although the stall onset remains sharper than in the measurements.
+The lifting-line model provides reliable trends in the attached-flow regime, but its sectional-data-based formulation becomes less robust when large portions of the span operate in post-stall conditions.
+This baseline assessment provides the reference against which the additional nonlinearities introduced by control-surface deflection are examined in the following subsection.
+
+
+
+\subsection{Effect of full-span control-surface deflection}
+\label{sec:deflection_results}
+
+After establishing the baseline aerodynamic behavior of the undeflected tailplane, the effect of full-span control-surface deflection is examined.
+The objective is to determine how deflection modifies the global loads, the onset of nonlinear behavior, and the agreement among the different fidelity levels.
+In contrast to the undeflected configuration, a positive trailing-edge deflection increases the section's effective camber and introduces a stronger adverse pressure gradient over the rear portion of the airfoil.
+As a result, local separation over the control surface may occur before the onset of main-surface stall.
+The comparison is first performed in terms of the global aerodynamic coefficients and is then used to identify the incidence and deflection ranges where the numerical predictions depart from the wind tunnel measurements.
+
+All available deflections are included in the quantitative analysis.
+However, to preserve the readability of the coefficient plots, only selected representative deflections are shown in the main figures.
+The complete set of curves is reported in Appendix~\ref{app:additional_coefficients}.
+The main text focuses on the deflections that best illustrate the transition from attached-flow behavior to control-surface separation and main-surface stall.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{ClCdCm_ExpvsNum_OnlyRef_Delta_0__10__20__34.pdf}
+\caption{Comparison between wind tunnel, RANS, and DUST lifting-line aerodynamic coefficients for selected control-surface deflections.}
+\label{fig:Coefficients:ExpvsNum:Delta0_10_20_34}
+\end{figure}
+
+Figure~\ref{fig:Coefficients:ExpvsNum:Delta0_10_20_34} compares the wind tunnel, RANS, and DUST lifting-line aerodynamic coefficients for $\delta\in\{0^\circ,10^\circ,20^\circ,34^\circ\}$.
+As the control surface is deflected, the symmetry of the undeflected configuration is lost.
+Consequently, the aerodynamic-coefficient curves at positive and negative incidences differ markedly.
+
+Starting from the lift coefficient, the primary effect of positive control-surface deflection is a vertical shift of the curves.
+This trend is consistent with the increase in effective camber produced by a downward deflection of the trailing-edge control surface~\cite{abbott1959theory}.
+As a consequence, the maximum lift coefficient generally increases, while the corresponding incidence shifts toward lower values.
+This behavior is reproduced by both numerical approaches, although the differences in fidelity become more pronounced as the deflection increases.
+
+For $\delta=10^\circ$, the numerical predictions remain in good agreement with the experimental data over most of the attached-flow range.
+The RANS and lifting-line results are similar up to approximately $\alpha=8^\circ$.
+At larger incidences, the RANS solution predicts an abrupt loss of lift, consistent with the sharp stall behavior already observed for the undeflected configuration.
+The lifting-line prediction instead continues to increase up to approximately $\alpha=10^\circ$ and then approaches a plateau.
+For this moderate deflection, the smoother post-stall evolution predicted by the lifting-line model aligns more closely with the experimental trend, although the lift level is overpredicted in part of the nonlinear range.
+Conversely, the RANS solution underpredicts the wind tunnel lift after the abrupt slope change.
+
+As the deflection is increased, the lifting-line results deviate more substantially from the experimental data.
+This behavior is expected because the flow complexity associated with large control-surface deflections is not fully represented by the two-dimensional sectional data used in the C81 tables.
+In particular, localized separation over the deflected surface, spanwise redistribution of the load, and three-dimensional separated-flow effects become increasingly important.
+These effects are more directly represented in the RANS simulations, although discrepancies remain, especially in the pre-stall nonlinear range.
+
+The lift-curve slope in the attached-flow range is not strongly modified by increasing control-surface deflection, except for localized slope changes associated with control-surface separation.
+The surface-flow analysis reported below indicates that this nonlinear behavior is associated with the formation of a separated recirculating region over the deflected surface.
+This localized separation produces a sudden loss of lift over a limited portion of the aerodynamic surface.
+However, as long as the flow over the fixed main surface remains mostly attached, the global lift coefficient can recover and continue to increase with incidence after the control surface separates.
+In the wind tunnel data, this behavior is only weakly visible for $\delta=10^\circ$, whereas it becomes evident for $\delta\geq20^\circ$.
+The incidence at which control-surface separation first affects the lift curve decreases as the deflection increases.
+This trend is consistent with the stronger curvature and adverse pressure gradient introduced near the hinge line, which make it more difficult for the already developed boundary layer to remain attached over the deflected surface.
+Both numerical approaches capture this qualitative mechanism, although the predicted onset incidence differs from the experimental one.
+These differences produce localized discrepancies after the onset of control-surface separation and before the development of main-surface stall.
+
+The drag coefficient exhibits the expected upward shift as the control-surface deflection increases.
+Moreover, the incidence corresponding to the minimum drag coefficient, $\alpha_{C_{D,\min}}$, moves toward lower values, consistent with the camber increase induced by the deflected trailing edge.
+An additional feature visible in the complete deflection set is that the wind tunnel value of $C_{D,\min}$ changes only moderately up to $\delta=20^\circ$, whereas a more pronounced increase is observed for the largest deflections.
+This behavior suggests that, beyond a sufficiently large deflection, the control surface is already separated over a significant range of incidence, including conditions close to minimum drag.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{ClCd_Num_Ref_Delta_20__34.pdf}
+\caption{3D RANS load decomposition at \(\delta\in\{20^\circ,34^\circ\}\).
+The total lift and drag coefficients are decomposed into contributions from the fixed surface and from the deflected control surface.
+The control-surface contribution to \(C_L\) is multiplied by a factor of four for visualization}
+\label{fig:Coefficients:ExpvsNum:Delta20_34_Division}
+\end{figure}
+
+This interpretation is supported by Fig.~\ref{fig:Coefficients:ExpvsNum:Delta20_34_Division}, which reports the RANS load decomposition between the fixed portion of the tailplane and the deflected control surface for $\delta\in\{20^\circ,34^\circ\}$.
+The lift contribution of the control surface is multiplied by a factor of four to make the local slope variations more visible.
+In the attached-flow range of the fixed surface, its contribution to both $C_L$ and $C_D$ is only weakly affected by the value of $\delta$.
+Conversely, the control-surface contribution to $C_D$ differs markedly between the two deflections.
+For the incidences corresponding to the approximately linear part of the global $C_L$--$\alpha$ curve, the drag level is governed primarily by the deflected surface.
+
+The corresponding control-surface contribution to $C_L$ clarifies the origin of this behavior.
+For $\delta=20^\circ$, the lift generated by the control surface increases nearly monotonically up to approximately $\alpha=0^\circ$, where separation begins to affect the local load.
+For $\delta=34^\circ$, the control-surface lift contribution is already nearly flat from approximately $\alpha=-10^\circ$, indicating that the deflected surface is separated over a much wider incidence range.
+This explains the pronounced upward shift of the drag coefficient between the two deflections.
+It also explains why the global $C_D$--$\alpha$ curve becomes less parabolic and more nearly linear in the incidence range where the fixed surface is still attached.
+In this range, the change in drag is driven primarily by the separated control surface, whereas the fixed-surface contribution still retains the parabolic trend typical of attached lifting-surface behavior.
+
+As the absolute incidence is further increased, the fixed-surface contribution to $C_D$ also grows because separation develops over the main surface.
+Since the fixed surface is larger than the control surface, its drag contribution eventually dominates the total drag, especially at large negative incidences.
+In this incidence range, the load decomposition indicates that the control surface is no longer the dominant source of the global drag increase.
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{1.2cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{1cm}}
+\hline
+\hline
+&
+$\boldsymbol{\alpha} \mathbf{ = -20^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = -16^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = -12^\circ}$
+&
+\\
+\hline
+
+\makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{D}}$ \\ @ \DeltaCaption{20}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_-20_Delta_20_UpperSurface_CD.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_-16_Delta_20_UpperSurface_CD.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png}}
+\\
+
+\makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{D}}$ \\ @ \DeltaCaption{34}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_-16_Delta_35_UpperSurface_CD.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_-12_Delta_35_UpperSurface_CD.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png}}
+
+\\
+\hline
+\hline
+\end{tabular}
+\caption{RANS surface-flow topology and local drag contribution for \(\delta=20^\circ\) and \(\delta=34^\circ\) at negative incidences.
+The columns correspond to \(\alpha=-20^\circ\), \(\alpha=-16^\circ\), and \(\alpha=-12^\circ\).
+The upper row reports the cell-wise contribution to \(C_D\) for \(\delta=20^\circ\), while the lower row reports the corresponding distribution for \(\delta=34^\circ\).
+Skin-friction lines are superimposed to indicate the surface-flow topology.}
+\label{fig:FlowTopology:RefDelta20_34}
+\end{figure}
+
+Figure~\ref{fig:FlowTopology:RefDelta20_34} compares the surface-flow topology and the local contribution to the drag coefficient for the configurations at $\delta=20^\circ$ and $\delta=34^\circ$.
+The comparison is performed at $\alpha\in\{-20^\circ,-16^\circ,-12^\circ\}$.
+The surface streamlines show that the flow over the control surface remains attached at these incidences for $\delta=20^\circ$, whereas it is fully separated for $\delta=34^\circ$.
+This confirms the interpretation based on the lift and drag curves, namely that the larger deflection produces a separated control-surface state over a wider range of incidence.
+
+The local $C_D$ contribution further clarifies the origin of the drag difference between the two deflections.
+For $\delta=34^\circ$, the entire control surface provides a positive contribution to drag.
+The fixed surface, instead, exhibits regions of both positive and negative local drag contributions, primarily resulting from the combined effects of the pressure distribution and the local surface orientation.
+As the angle of attack increases from $\alpha=-20^\circ$ to $\alpha=-12^\circ$, the negative-$C_D$ region expands toward the leading edge.
+This increases its influence on the integrated fixed-surface contribution, consistent with the trend reported in Fig.~\ref{fig:Coefficients:ExpvsNum:Delta20_34_Division}.
+
+For $\delta=20^\circ$, the distribution at $\alpha=-20^\circ$ is similar to that obtained for $\delta=34^\circ$ in terms of the fixed-surface contribution.
+This explains the comparable lift and drag levels observed at this incidence.
+As the incidence is increased, the fixed-surface distributions remain broadly similar between the two deflections, whereas the control-surface contribution becomes markedly different.
+Since the flow over the control surface remains attached for $\delta=20^\circ$, a region of strong pressure recovery develops near the trailing edge and provides a negative contribution to drag.
+This contribution partly counterbalances the positive drag generated over the rest of the deflected surface, leading to a lower integrated control-surface drag and, therefore, a lower total drag coefficient.
+
+
+
+Returning to the global coefficients, Fig.~\ref{fig:Coefficients:ExpvsNum:Delta0_10_20_34} shows that the pitching-moment coefficient is also strongly affected by the redistribution of aerodynamic loading caused by control-surface deflection.
+The effect of deflection is not limited to a nearly uniform shift of $C_{M,y}$.
+Instead, the slope and nonlinear behavior of the pitching-moment curve are modified as separation develops over the deflected surface and, at larger incidences, over the fixed portion of the tailplane.
+Since the aerodynamic center used for the moment reduction is computed from the undeflected case, only the $\delta=0^\circ$ curve exhibits an approximately constant moment in the low-incidence attached-flow range.
+For nonzero deflections, the pitching moment varies across the entire incidence sweep because the load distribution changes both in magnitude and in position relative to the reference point.
+
+In the pre-stall range, the wind tunnel curves show a variation of the $C_{M,y}$--$\alpha$ slope around $\alpha=0^\circ$.
+This behavior is consistent with the progressive redistribution of lift between the fixed and control surfaces.
+As the fixed surface generates increasing positive lift, the inboard attached regions contribute to the pitching moment according to their position relative to the aerodynamic-center axis.
+These inboard regions remain attached up to higher incidences and therefore continue to affect $C_{M,y}$ well into the nonlinear regime.
+At the same time, the deflected control surface makes an additional contribution whose sign depends on its moment arm relative to the aerodynamic center.
+When separation develops over the control surface, the corresponding loss of local lift produces an abrupt change in the pitching-moment coefficient.
+This mechanism is visible, for example, around $\alpha\simeq0^\circ$ for $\delta=20^\circ$.
+
+The numerical approaches differ substantially in their ability to reproduce the pitching-moment behavior.
+The lifting-line model shows significant discrepancies for nonzero deflections, indicating that the prediction of the integrated lift is insufficient to recover the correct chordwise and spanwise distributions of the aerodynamic load.
+This limitation is particularly important for $C_{M,y}$ because the moment coefficient is directly affected by the position of the load relative to the aerodynamic center.
+The RANS simulations provide a closer representation of the wind tunnel curve shapes, including the rise of $C_{M,y}$ around $\alpha=0^\circ$.
+However, the smoother post-stall evolution observed experimentally is replaced in the RANS results by sharper slope changes, consistent with the more abrupt separation behavior already identified in the lift and drag curves.
+
+
+
+\subsection{Lift and pitching-moment control effectiveness}
+\label{sec:effectiveness_results}
+
+
+The previous subsection showed that control-surface deflection modifies the global aerodynamic coefficients through a combination of an increase in effective camber, control-surface separation, and load redistribution over the fixed surface.
+A more compact assessment of these effects is obtained by examining the effectiveness of lift and pitching-moment control.
+The objective is to quantify the incremental response of the deflected surface and determine how this response varies with incidence and deflection amplitude.
+The derivatives are reported per radian, and no smoothing is applied to the finite-difference curves.
+
+For a generic aerodynamic coefficient \(C_Q\), with \(Q\in\{L,M_y\}\), the interval control effectiveness is computed at a fixed incidence as
+\begin{equation}
+C_{Q,\delta}^{[\delta_i,\delta_j]}(\alpha)
+=
+\frac{
+C_Q(\alpha,\delta_j)-C_Q(\alpha,\delta_i)
+}{
+\delta_j-\delta_i
+},
+\label{eq:control_effectiveness_interval}
+\end{equation}
+where \(\delta\) is expressed in radians.
+The effectiveness is evaluated over the intervals \([0^\circ,10^\circ]\), \([10^\circ,20^\circ]\), \([20^\circ,30^\circ]\), and \([30^\circ,34^\circ]\).
+The first interval represents the low-deflection control effectiveness, whereas the subsequent intervals quantify the finite-deflection response as the aerodynamic behavior becomes progressively nonlinear.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{ClCd_ExpvsNum_OnlyRef_DeltaDeriv_Delta_0__10__20__30.pdf}
+    \caption{Comparison between wind tunnel, RANS, and DUST lifting-line lift and pitching-moment control effectiveness for selected control-surface deflection ranges.}
+    \label{fig:AeroCoeffs:control_effectiveness}
+\end{figure}
+
+Figure~\ref{fig:AeroCoeffs:control_effectiveness} reports \(C_{L,\delta}\) and \(C_{M_y,\delta}\) as functions of incidence for the selected deflection intervals.
+Each column corresponds to a single deflection interval, and the wind tunnel, RANS, and lifting-line results are compared within each panel.
+This layout allows the method-to-method agreement to be assessed directly for each deflection range, while the variation from left to right highlights the change in control effectiveness as the deflection amplitude increases.
+The use of the full incidence range also shows the different behavior of the negative- and positive-incidence branches.
+At negative incidence, the deflected control surface remains attached over a wider range of conditions, and the lift control effectiveness is generally higher.
+At positive incidence, the stronger adverse pressure gradient over the deflected surface promotes earlier separation and leads to a more rapid degradation of control effectiveness.
+
+For the low-deflection interval \(\delta\in[0^\circ,10^\circ]\), the \(C_{L,\delta}\) curve exhibits an approximately constant value over the negative and low-incidence range.
+This behavior indicates that when the flow remains attached to both the fixed and control surfaces, the lift response to deflection is nearly linear.
+The wind tunnel results show a first reduction of control effectiveness at positive incidences, consistent with the change in the \(C_L\)--\(\alpha\) slope visible in Fig.~\ref{fig:Coefficients:ExpvsNum:Delta0_10_20_34}.
+Both numerical approaches reproduce the attached-flow level with reasonable accuracy, although the lift control derivative is slightly overpredicted.
+However, the experimentally observed initial loss of effectiveness at small positive incidence is not captured by the numerical results.
+As the incidence is further increased on both branches and separation develops over larger portions of the surface, the wind tunnel curve shows a progressive reduction of lift effectiveness.
+The RANS simulations predict a more abrupt degradation, consistent with the sharper transition between attached and separated states already observed in the global lift curves.
+The lifting-line prediction also captures the overall reduction of effectiveness, but its behavior becomes less regular as the flow enters the nonlinear regime.
+
+For the interval \(\delta\in[10^\circ,20^\circ]\), \(C_{L,\delta}\) becomes more strongly dependent on incidence.
+On the positive-incidence branch, the wind tunnel curve decreases at low incidence, partially recovers, and then decreases again as the flow approaches stall and post-stall conditions.
+This trend is consistent with the interaction between control-surface separation and the still-attached flow over the fixed surface.
+The numerical results reproduce the qualitative shape of the curve, although they overestimate the lift effectiveness at low positive incidence.
+This is consistent with the numerically predicted delayed onset of control-surface separation in the global-coefficient analysis.
+At higher positive incidences, the agreement with the wind tunnel data improves because the flow over larger portions of the surface has entered the separated regime.
+On the negative-incidence branch, the larger values of \(C_{L,\delta}\) confirm that the control surface remains more effective when the local flow over the deflected surface is less prone to separation.
+
+For the interval \(\delta\in[20^\circ,30^\circ]\), the wind tunnel lift effectiveness shows a pronounced local minimum at low positive incidence, followed by a gradual increase toward a higher level.
+This indicates that the incremental lift generated as the deflection increases from \(20^\circ\) to \(30^\circ\) is no longer governed by a simple attached-flow response.
+Instead, it reflects the incidence-dependent evolution of control-surface separation and the redistribution of the load over the fixed surface.
+At larger positive incidences, the derivative tends to level off, consistent with the lift-retaining behavior of positively swept lifting surfaces in the post-stall regime.
+The RANS simulations provide good agreement with the wind tunnel data in this range, especially after the onset of stall.
+However, because the onset of control-surface separation is not predicted over the correct incidence range, discrepancies remain at low negative and low positive incidences.
+The lifting-line model shows larger deviations when the aerodynamic surface is largely separated, confirming the reduced robustness of the sectional-data-based approach in this regime.
+
+For the interval \(\delta\in[30^\circ,34^\circ]\), the lift effectiveness is lower over most of the incidence range.
+This behavior is consistent with the fact that, at these large deflections, the control surface is already separated over a substantial portion of the operating envelope.
+Because this derivative is computed over a narrow \(4^\circ\) deflection interval, the corresponding curves are more sensitive to local variations and should be interpreted more cautiously than the wider \(10^\circ\) intervals.
+The pronounced minimum observed in the previous interval is no longer present, suggesting that the additional deflection from \(30^\circ\) to \(34^\circ\) does not produce the same change in control-surface state.
+
+The pitching-moment derivative shows larger discrepancies among the methods than the lift derivative.
+The RANS simulations provide the closest overall agreement with the wind tunnel data, whereas the lifting-line results show larger deviations, consistent with the pitching-moment discrepancies discussed in the previous subsection.
+At positive incidences, the magnitude of \(C_{M_y,\delta}\) decreases markedly when moving from the low-deflection interval \([0^\circ,10^\circ]\) to the finite-deflection interval \([10^\circ,20^\circ]\).
+This reduction indicates a loss of pitching-moment control effectiveness associated with the onset of control-surface separation and with the corresponding redistribution of the incremental aerodynamic load.
+At negative incidences, the effectiveness changes less over the same deflection interval, indicating that the load distribution varies more nearly linearly with control-surface deflection when the deflected surface remains attached.
+
+For the larger deflection intervals, the wind tunnel curves remain in a lower-effectiveness regime, and further increases in deflection do not produce a comparable additional reduction in \(C_{M_y,\delta}\).
+In particular, the interval \([20^\circ,30^\circ]\) exhibits a pronounced local minimum at low negative incidences, which is consistent with a change in the incidence at which control-surface separation begins to affect the incremental load distribution.
+As the incidence becomes more negative, the control effectiveness increases again, suggesting that the local flow over the control surface returns to a more favorable state.
+Once the deflected surface is substantially separated, at large deflections and large absolute incidences, the incremental pitching-moment response is governed primarily by the redistribution of the load over the remaining attached and separated regions rather than by a simple increase in control-surface loading.
+
+For the last interval, \(\delta\in[30^\circ,34^\circ]\), the wind tunnel pitching-moment effectiveness is low and affected by larger uncertainty.
+As noted above, this interval is more sensitive to finite-difference noise because it is computed over a smaller deflection range.
+Moreover, the numerical predictions deviate substantially from the experimental trend, particularly at negative incidence angles.
+These conditions are challenging to simulate because the control surface operates near the transition between attached and separated flow.
+As a result, small differences in the predicted separation onset produce large variations in the computed incremental lift and pitching-moment response.
+
+
+The trends observed in Fig.~\ref{fig:AeroCoeffs:control_effectiveness} are summarized quantitatively only for the deflection intervals for which a representative low-incidence effectiveness can be defined.
+The intervals \([0^\circ,10^\circ]\) and \([10^\circ,20^\circ]\) exhibit a sufficiently regular negative-incidence range and are therefore reduced to averaged reference values.
+The larger deflection intervals, \([20^\circ,30^\circ]\) and \([30^\circ,34^\circ]\), are not included in the table because their derivative curves are strongly incidence-dependent and do not exhibit a clear reference plateau.
+For these intervals, reducing the response to a single averaged value would obscure the separated-flow mechanisms already visible in Fig.~\ref{fig:AeroCoeffs:control_effectiveness}.
+The \([30^\circ,34^\circ]\) interval is also more sensitive to finite-difference noise because it is computed over a narrower deflection range.
+
+For a generic coefficient \(C_Q\), with \(Q\in\{L,M_y\}\), the reference effectiveness is defined as
+\begin{equation}
+\overline{C}_{Q,\delta}^{[\delta_i,\delta_j]}
+=
+\frac{1}{N_{\mathcal{A}^{[\delta_i,\delta_j]}}}
+\sum_{\alpha_k\in\mathcal{A}^{[\delta_i,\delta_j]}}
+C_{Q,\delta}^{[\delta_i,\delta_j]}(\alpha_k).
+\label{eq:control_effectiveness_average}
+\end{equation}
+The averaging range \(\mathcal{A}^{[\delta_i,\delta_j]}\) is selected from the wind tunnel derivative curve and then applied unchanged to the RANS and DUST lifting-line data.
+This choice ensures that the comparison among fidelity levels is performed over the same incidence range.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Reference lift and pitching-moment control effectiveness for the deflection intervals exhibiting a regular low-incidence response.
+    Derivatives are reported per radian.
+    The averaging range \(\mathcal{A}^{[\delta_i,\delta_j]}\) is selected from the wind tunnel derivative curve and then used consistently for all methods.}
+    \label{tab:control_effectiveness}
+    \begin{tabular}{llccc}
+        \hline
+        \hline
+        Method
+        & Interval
+        & \(\mathcal{A}^{[\delta_i,\delta_j]}\)
+        & \(\overline{C}_{L,\delta}\)
+        & \(\overline{C}_{M_y,\delta}\) \\
+        \hline
+        Wind tunnel & \([0^\circ,10^\circ]\) & \([-6^\circ,0^\circ]\) & 2.100$\pm$0.024 & -0.521$\pm$0.011 \\
+        Wind tunnel & \([10^\circ,20^\circ]\) & \([-14^\circ,-4^\circ]\) & 1.552$\pm$0.021 & -0.384$\pm$0.011 \\
+        \hline
+        RANS & \([0^\circ,10^\circ]\) & \([-6^\circ,0^\circ]\) & 2.427 & -0.522 \\
+        RANS & \([10^\circ,20^\circ]\) & \([-14^\circ,-4^\circ]\) & 2.234 & -0.447 \\
+        \hline
+        DUST lifting line & \([0^\circ,10^\circ]\) & \([-6^\circ,0^\circ]\) & 2.493 & -0.912 \\
+        DUST lifting line & \([10^\circ,20^\circ]\) & \([-14^\circ,-4^\circ]\) & 2.416 & -0.977 \\
+        \hline
+        \hline
+    \end{tabular}
+\end{table}
+
+The values reported in Table~\ref{tab:control_effectiveness} confirm the reduction of control effectiveness when the deflection interval is increased from \([0^\circ,10^\circ]\) to \([10^\circ,20^\circ]\).
+In the wind tunnel data, the averaged lift effectiveness decreases from \(2.100\pm0.024\) to \(1.552\pm0.021\), corresponding to a reduction of approximately \(26\%\).
+A similar reduction is observed for the pitching-moment effectiveness, whose magnitude decreases from \(0.521\pm0.011\) to \(0.384\pm0.011\).
+This confirms that even on the favorable negative-incidence branch, the incremental aerodynamic response weakens as the deflection amplitude increases.
+
+The RANS simulations overpredict the effectiveness of lift control in both intervals.
+The discrepancy is moderate for \([0^\circ,10^\circ]\), where \(C_{L,\delta}\) is overpredicted by approximately \(16\%\), but becomes larger for \([10^\circ,20^\circ]\), where the overprediction reaches approximately \(44\%\).
+This indicates that the numerical model does not reproduce the full loss of lift effectiveness associated with the larger deflection interval.
+Conversely, the pitching-moment effectiveness is predicted very accurately for \([0^\circ,10^\circ]\), but is overestimated in magnitude for \([10^\circ,20^\circ]\).
+This behavior is consistent with the delayed or displaced prediction of control-surface separation, as indicated by the derivative curves.
+
+The DUST lifting-line model overpredicts lift effectiveness across both intervals and exhibits a much larger discrepancy in pitching-moment effectiveness.
+For the low-deflection interval, the lift derivative is overpredicted by approximately \(19\%\), while the magnitude of the pitching-moment derivative is overpredicted by approximately \(75\%\).
+For \([10^\circ,20^\circ]\), the discrepancy further increases, with the lift effectiveness overpredicted by approximately \(56\%\) and the pitching-moment effectiveness by more than a factor of two.
+Moreover, the lifting-line model does not reproduce the experimental reduction of pitching-moment effectiveness between the two deflection intervals.
+This confirms that although the lifting-line approach provides a reasonable estimate of the low-deflection lift response, it cannot capture the load redistribution responsible for pitching-moment control effectiveness.
+
+
+
+
+\subsection{Main-surface stall and post-stall behavior}
+\label{sec:main_stall_results}
+
+The previous subsections focused on the nonlinearities associated with control-surface deflection and with the corresponding loss of control effectiveness.
+These effects may occur even while the fixed portion of the tailplane remains largely attached.
+A separate analysis is therefore required to distinguish control-surface-dominated separation from main-surface stall and from the subsequent post-stall behavior.
+
+The present subsection examines the flow evolution at larger incidences, where separation extends upstream of the hinge line and modifies the global aerodynamic response of the complete tailplane.
+The analysis is based on the RANS surface-flow topologies reported in Fig.~\ref{fig:FlowTopology:Delta_0_10_20_34}.
+For each control-surface deflection, three representative states are selected from the RANS lift curve in order to describe comparable stages of the stall evolution.
+
+The first state corresponds to the incidence at which the RANS lift coefficient reaches its maximum value.
+Under this condition, the fixed portion of the tailplane remains largely attached, and the flow state therefore represents the last high-lift condition predicted before the abrupt stall transition.
+The second state corresponds to the first computed incidence after the maximum-lift condition.
+This state is used to document the rapid development of main-surface separation and the associated loss of lift predicted by RANS.
+The third state corresponds to a deep post-stall condition, selected after the main lift drop, when the separated-flow topology is fully developed.
+The selected incidences are therefore not identical for all deflections, but correspond to comparable stages of the RANS stall and post-stall evolution.
+
+
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{1.2cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{1cm}}
+\hline
+\hline
+&
+$\boldsymbol{\alpha}_{\mathbf{C_{L,\mathrm{\mathbf{max}}}},\mathrm{\mathbf{RANS}}}$
+&
+$\boldsymbol{\alpha}_{\mathbf{C}_{\mathbf{L}}^\mathrm{\mathbf{drop}},\mathrm{\mathbf{RANS}}}$
+&
+$\boldsymbol{\alpha}_{\mathbf{C}_{\mathbf{L,\mathrm{\mathbf{min}}}}^{\mathrm{\mathbf{post}}},\mathrm{\mathbf{RANS}}}$
+&
+\\
+\hline
+
+\makecell[c]{\DeltaCaption{0}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_12_Delta_0_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{12}};
+}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_14_Delta_0_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{14}};
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_18_Delta_0_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{18}};
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_18_Delta_0_UpperSurface_CP.png}}
+\\
+
+
+\makecell[c]{\DeltaCaption{10}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_8_Delta_10_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{8}};
+}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_10_Delta_10_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{10}};
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_18_Delta_10_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{18}};
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_18_Delta_0_UpperSurface_CP.png}}
+\\
+
+\makecell[c]{\DeltaCaption{20}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_6_Delta_20_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{6}};
+}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_10_Delta_20_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{10}};
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_14_Delta_20_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{14}};
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_18_Delta_0_UpperSurface_CP.png}}
+\\
+
+\makecell[c]{\DeltaCaption{34}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_8_Delta_35_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{8}};
+}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_10_Delta_35_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{10}};
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_26_Delta_35_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{26}};
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_18_Delta_0_UpperSurface_CP.png}}
+\\
+
+\hline
+\hline
+\end{tabular}
+\caption{RANS surface-flow topology at representative stages of the main-surface stall evolution for selected control-surface deflections.
+Each row corresponds to a fixed deflection angle.
+The columns correspond to the RANS main-surface stall-onset state, the maximum-lift state, and a post-stall low-lift state.
+The actual values of \(\alpha\) are reported in each panel.}
+\label{fig:FlowTopology:Delta_0_10_20_34}
+\end{figure}
+
+The first column of Fig.~\ref{fig:FlowTopology:Delta_0_10_20_34} corresponds to the maximum-lift state predicted by RANS for each control-surface deflection.
+For the lower deflections, the maximum lift coefficient is reached while the flow remains attached over most of the tailplane.
+As the deflection is increased, a recirculating region first appears near the trailing edge and then progressively extends over the deflected control surface.
+Since the main contribution to the integrated lift still comes from the fixed surface, the loss of lift associated with control-surface separation does not prevent the development of the maximum lift coefficient.
+At \(\delta=34^\circ\), the maximum-lift state is instead obtained when separation already affects a substantial portion of the fixed surface.
+Nevertheless, the inboard region remains largely attached.
+Because this region has a larger local chord due to the tapered planform, it makes a significant contribution to the integrated lift.
+
+The second column reports the first post-peak incidence, where the abrupt drop in \(C_L\) is visible in the RANS lift curve.
+In the zero-deflection case, this condition is associated with the formation of a leading-edge separated region that extends over most of the span.
+A strong suction peak is still visible within the separated structure, but the large recirculating region produces a sudden reduction of the integrated lift.
+At \(\delta=10^\circ\), the separated structure is displaced downstream with respect to the zero-deflection case and is located closer to the hinge region.
+This downstream displacement becomes more evident for \(\DeltaSimple{20}\), where the recirculating core is mainly located over the control surface.
+In both cases, the most inboard stations remain largely attached, consistent with the delayed separation observed near the root.
+For the largest deflection, \(\DeltaSimple{34}\), the control surface is already separated over most of the span before the post-peak condition is reached.
+The additional lift loss is therefore associated with the extension of separation over the fixed surface rather than with the initial separation of the deflected surface.
+
+The last column shows a deep-post-stall condition, selected near the minimum value of \(C_L\) predicted by RANS after the main lift drop.
+For \(\delta=0^\circ\), the separated structure has moved further inboard, leaving only a narrow attached region near the root.
+For the intermediate deflections, \(\DeltaSimple{10}\) and \(\DeltaSimple{20}\), the recirculating region associated with the control surface remains visible, while an additional separated region develops near the leading edge because of the larger incidence.
+The resulting topology indicates that the post-stall state is governed by the interaction between the control-surface and main-surface separations.
+For \(\DeltaSimple{34}\), the flow field becomes more irregular and does not exhibit a single well-defined recirculating cell.
+This condition is particularly challenging for a steady RANS calculation because the control surface and the fixed surface are both largely separated, and small changes in the predicted separation pattern can produce substantial changes in the local load distribution.
+The good agreement obtained for the integrated lift coefficient indicates that the dominant post-stall load level is reasonably captured.
+However, because wind tunnel surface-flow visualization is not available at this incidence, the detailed topology should be interpreted as a RANS-based explanation of the numerical result rather than as a direct validation of the local separated-flow structure.
+
+A direct one-to-one comparison between the wind tunnel visualizations and the RANS topologies is not possible because the two datasets reach stall through different paths.
+The wind tunnel lift curves in Figure~\ref{fig:Coefficients:ExpvsNum:Delta0_10_20_34} show a gradual reduction of the \(C_L\)--\(\alpha\) slope and reach \(C_{L,\max}\) at higher incidences.
+The available wind tunnel surface visualizations therefore correspond to conditions in which separated flow is already present at the experimental maximum-lift state.
+Conversely, the RANS solutions remain largely attached to the fixed surface up to the predicted maximum-lift condition, then undergo a more abrupt transition to separated flow at the subsequent incidence.
+
+Figure~\ref{fig:FlowTopology:RANSVsExp} is therefore organized to separate the discrepancy in maximum-lift incidence from the discrepancy in separated-flow topology.
+For each deflection, the first column reports the RANS topology at the RANS maximum-lift condition, the second column reports the wind tunnel visualization at the experimental maximum-lift condition, and the third column reports the RANS topology at the same incidence as the corresponding wind tunnel visualization.
+The actual incidence values are reported in each panel.
+This layout allows the RANS maximum-lift state to be compared with the experimental maximum-lift topology, while also showing the numerical solution's prediction at the incidence at which the experimental maximum lift is reached.
+
+A further limitation of the topology comparison concerns the treatment of the root region.
+In the wind tunnel, the inboard part of the model is mounted on the floor and is affected by the floor boundary layer.
+In the RANS simulations, the root is instead modeled using an ideal symmetry plane.
+This difference can influence the local separation pattern near the root and the spanwise development of the separated structures.
+Consequently, discrepancies in the inboard location, extent, or migration of the separated region should not be attributed only to turbulence or transition modeling.
+This effect is expected to be most relevant in the stall and post-stall regimes, where the separated-flow topology involves a substantial portion of the span.
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{1.2cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}}
+\hline
+\hline
+&
+\textbf{3D RANS}
+&
+\textbf{Wind Tunnel}
+&
+\textbf{3D RANS (@$\alpha_{WT}$}
+\\
+\hline
+
+\makecell[c]{\DeltaCaption{0}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_12_Delta_0_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{12}};
+}
+&
+\begin{tikzpicture}
+    \node[anchor=south west, inner sep=0] (img) at (0,0)
+        {\reflectbox{\includegraphics[width=0.24\textwidth]{AoA_22_delta_0.png}}};
+    \begin{scope}[x={(img.south east)}, y={(img.north west)}]
+        \node[fill=white] at (0.3, 0.7) {\AlphaSimple{22}};
+    \end{scope}
+\end{tikzpicture}%
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_22_Delta_0_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{22}};
+}
+
+\\
+
+
+\makecell[c]{\DeltaCaption{10}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_8_Delta_10_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{8}};
+}
+&
+\begin{tikzpicture}
+    \node[anchor=south west, inner sep=0] (img) at (0,0)
+        {\reflectbox{\includegraphics[width=0.24\textwidth]{AoA_18_delta_-10.png}}};
+    \begin{scope}[x={(img.south east)}, y={(img.north west)}]
+        \node[fill=white] at (0.3, 0.7) {\AlphaSimple{18}};
+    \end{scope}
+\end{tikzpicture}%
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_18_Delta_10_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{18}};
+}
+
+\\
+
+\makecell[c]{\DeltaCaption{20}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_6_Delta_20_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{6}};
+}
+&
+\begin{tikzpicture}
+    \node[anchor=south west, inner sep=0] (img) at (0,0)
+        {\reflectbox{\includegraphics[width=0.24\textwidth]{AoA_18_delta_-20.png}}};
+    \begin{scope}[x={(img.south east)}, y={(img.north west)}]
+        \node[fill=white] at (0.3, 0.7) {\AlphaSimple{18}};
+    \end{scope}
+\end{tikzpicture}%
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_18_Delta_20_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{18}};
+}
+\\
+
+\makecell[c]{\DeltaCaption{34}}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_8_Delta_35_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{8}};
+}
+&
+\begin{tikzpicture}
+    \node[anchor=south west, inner sep=0] (img) at (0,0)
+        {\reflectbox{\includegraphics[width=0.24\textwidth]{AoA_14_delta_-34.png}}};
+    \begin{scope}[x={(img.south east)}, y={(img.north west)}]
+        \node[fill=white] at (0.3, 0.7) {\AlphaSimple{14}};
+    \end{scope}
+\end{tikzpicture}%
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_14_Delta_35_UpperSurface_CP.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+    \node[] at (0.3,0.7) {\AlphaSimple{14}};
+}
+
+\\
+
+\hline
+\hline
+\end{tabular}
+\caption{Comparison between wind tunnel surface-flow visualizations and RANS surface-flow topologies at maximum-lift and high-incidence conditions.
+For each control-surface deflection, the first column shows the RANS topology at the RANS maximum-lift condition, the second column shows the wind tunnel visualization at the experimental maximum-lift condition, and the third column shows the RANS topology at the same incidence as the wind tunnel visualization.
+The actual values of \(\alpha\) are reported in each panel.}
+\label{fig:FlowTopology:RANSVsExp}
+\end{figure}
+
+Figure~\ref{fig:FlowTopology:RANSVsExp} confirms that the experimental maximum-lift condition is already characterized by separated flow over a significant portion of the tailplane.
+This is consistent with the gradual reduction of the experimental \(C_L\)--\(\alpha\) slope before \(C_{L,\max}\).
+In the RANS results, the maximum-lift state is still associated with a largely attached fixed surface, especially at lower deflections.
+The numerical stall development is therefore more abrupt, with the separated topology appearing only after the maximum-lift point is exceeded.
+This difference explains the lower predicted stall incidence and the sharper drop in lift observed in the RANS coefficient curves.
+
+When the RANS solution is evaluated at the same incidence as the wind tunnel maximum-lift visualization, the predicted flow topology becomes more similar to the experimental one.
+In both datasets, the high-incidence state is characterized by a large separated region and by the formation of a coherent recirculating structure over the suction side.
+However, the RANS-separated structure is generally located farther inboard than in the wind-tunnel visualization.
+This spanwise displacement is consistent with the different treatment of the root boundary condition.
+The wind tunnel floor boundary layer can promote a different inboard development of separation, whereas the ideal symmetry plane used in the numerical model imposes a cleaner root condition and may alter the spanwise migration of the separated structure.
+
+Overall, the comparison shows that RANS reproduces the main high-incidence separated-flow pattern observed in the wind tunnel, but predicts its development too abruptly and with the dominant separated structure displaced inboard.
+The surface topologies therefore support the interpretation of the numerical stall mechanism and indicate that the experimental stall progression is more gradual and more affected by the inboard boundary condition.
+
+
+\subsection{Regime-dependent model accuracy and multi-fidelity implications}
+\label{sec:model_accuracy_results}
+
+The previous analyses show that the accuracy of the numerical methods depends strongly on the aerodynamic regime.
+A single global statement on model performance would therefore be misleading, because the dominant physical mechanisms change from attached flow to control-surface separation, main-surface stall, and deep post-stall conditions.
+This subsection summarizes the regime-dependent behavior of the DUST lifting-line and RANS predictions and indicates the regimes in which each method provides useful aerodynamic information.
+
+The assessment is qualitative and is based on the coefficient comparisons, the control-effectiveness analysis, and the surface-flow topologies discussed in the previous subsections.
+No formal validity envelope is introduced because such an envelope would require application-dependent acceptance tolerances.
+Instead, Table~\ref{tab:model_validity_summary} summarizes the practical implications of the observed discrepancies for the use of each fidelity level.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Qualitative regime-dependent assessment of the DUST lifting-line and RANS predictions.}
+    \label{tab:model_validity_summary}
+    \begin{tabular}{>{\centering\arraybackslash}m{3cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}}
+        \hline
+        \hline
+        Regime
+        & Dominant physics
+        & DUST lifting line
+        & RANS \\
+        \hline
+        Attached flow
+        & Mostly linear loading
+        & Good \(C_L\) trends; weaker \(C_{M_y}\)
+        & Good agreement for \(C_L\) and \(C_D\); closer \(C_{M_y}\) relative to lifting line \\
+        Control-surface separation
+        & Local nonlinear response over the deflected surface
+        & Limited; onset and moment response not captured robustly
+        & Captures the trend, but the onset may be shifted \\
+        Main-surface stall
+        & Rapid growth of separation over the fixed surface
+        & Not recommended for quantitative prediction
+        & Captures the main mechanism, but predicts a sharper stall transition \\
+        Deep post-stall
+        & Large-scale separated and vortical flow
+        & Not recommended for quantitative prediction
+        & Qualitative; sensitive to separation topology and root boundary condition \\
+        \hline
+        \hline
+    \end{tabular}
+\end{table}
+
+
+In the attached flow regime, both numerical approaches reproduce the lift trend with reasonable accuracy.
+The DUST lifting-line model is therefore useful for rapid estimates of the lift response and for preliminary exploration of the control-surface effect.
+However, the pitching-moment prediction is less robust because it depends on both the sectional moment data and the spanwise distribution of the incremental load.
+
+When control-surface separation develops, the limitations of the lifting-line approach become more evident.
+The response is no longer governed by a simple sectional attached-flow increment, and the redistribution of the load between the fixed surface and the control surface becomes important.
+In this regime, RANS provides a more consistent physical description of the flow, although the predicted onset of separation may be shifted with respect to the wind tunnel data.
+
+In the main-stall and post-stall regimes, the lifting-line model should be regarded as outside its reliable range.
+The RANS simulations capture the large-scale separated topology and the post-stall lift-retention mechanism associated with the positively swept planform.
+However, the stall transition is predicted too abruptly, and the detailed separated-flow topology is sensitive to the root boundary condition and to the steady-flow assumption.
+Consequently, RANS remains useful for qualitative interpretation and for estimating the post-stall load level, but its local topology should not be taken as a fully validated representation of the wind tunnel flow.
+
+
+
+
+
+
+
+
+
+
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+A multi-fidelity numerical--experimental investigation was performed for a positively swept, zero-dihedral tailplane equipped with a full-span trailing-edge control surface.
+Wind tunnel measurements were compared with a nonlinear lifting-line model and three-dimensional RANS simulations over the complete available incidence-deflection range.
+The analysis was organized by aerodynamic regime in order to separate attached-flow behavior, control-surface separation, main-surface stall, and post-stall conditions.
+
+In the attached-flow regime, both numerical approaches reproduced the main lift trends with reasonable accuracy.
+The RANS simulations provided the most consistent prediction of the global coefficients, whereas the lifting-line model remained effective primarily for the lift response.
+The pitching-moment prediction was more demanding because it depends not only on the integrated lift but also on the chordwise and spanwise distribution of the incremental load.
+
+The control-effectiveness analysis showed that the incremental response to deflection decreases with increasing deflection amplitude.
+In the wind tunnel data, the averaged lift effectiveness decreased from \(2.100\pm0.024\) to \(1.552\pm0.021\) per radian when moving from the \([0^\circ,10^\circ]\) interval to the \([10^\circ,20^\circ]\) interval.
+The corresponding pitching-moment effectiveness decreased in magnitude from \(0.521\pm0.011\) to \(0.384\pm0.011\).
+This confirms that the control response cannot be represented by a constant derivative once control-surface separation and load redistribution become significant.
+
+The RANS simulations captured the qualitative degradation in control effectiveness and provided the most physically consistent description of separated flow among the numerical methods.
+However, the lift effectiveness was overpredicted, and the onset of separation was shifted with respect to the wind tunnel measurements.
+The lifting-line model overpredicted both the lift and pitching-moment effectiveness, with particularly large discrepancies in pitching moment.
+This confirms that the sectional-data-based formulation becomes inadequate when the response is governed by three-dimensional separation and by redistribution of the load between the fixed surface and the control surface.
+
+The main-surface stall analysis showed that the wind tunnel and RANS results reach maximum lift through different paths.
+The experimental lift curves exhibit a gradual reduction of the \(C_L\)--\(\alpha\) slope before \(C_{L,\max}\), and the available surface-flow visualizations show that separated flow is already present at the experimental maximum-lift condition.
+The RANS solutions, instead, remain largely attached to the fixed surface up to the predicted maximum-lift condition and then undergo a more abrupt transition to separated flow.
+At the experimental maximum-lift incidence, RANS reproduces the main high-incidence separated-flow pattern, but the dominant separated structure is displaced inboard.
+This difference is consistent with the ideal symmetry-plane treatment of the root in the simulations and the presence of the wind tunnel floor boundary layer in the experiment.
+
+Overall, the lifting-line model is appropriate for rapid assessment of lift trends in attached and weakly nonlinear conditions, but it is not a quantitative predictor of pitching moment, control effectiveness, or poststall behavior for this configuration.
+RANS extends the useful predictive range into control-surface-separated and poststall regimes and provides a physically consistent interpretation of the separated-flow topology.
+Its main limitations are the overly abrupt stall transition, the sensitivity of the separated-flow topology, and the difference between the numerical symmetry plane and the wind-tunnel floor boundary layer at the root.
+The combined comparison therefore provides a regime-dependent basis for selecting the appropriate fidelity level in the aerodynamic analysis of unconventional swept tailplanes with full-span control surfaces.
+
+\red{ma non sono banali queste conclusioni? Secondo me dovremmo dare un tagli (a queste conclusioni) più sulla fisica che si sviluppa}
+
+Future work should focus on the flow regimes in which the present comparison identified the largest model-form sensitivity.
+Additional RANS simulations reproducing the wind tunnel floor and root-region boundary layer would help isolate the effect of the experimental mounting condition on the spanwise development of the separated structures.
+This point is particularly relevant near \(C_{L,\max}\) and in deep-stall conditions, where the comparison with the available surface-flow visualizations indicates that the root boundary condition can influence the inboard position of the dominant separated region.
+Scale-resolving simulations, such as delayed detached-eddy simulations, should also be considered at selected maximum-lift and deep-stall conditions to assess whether the sharp stall transition predicted by steady RANS is a consequence of the steady-flow assumption.
+Finally, a more detailed investigation of control-surface separation is required to characterize the onset, spanwise growth, and possible hysteresis of the separated region over the deflected surface.
+Such analyses would provide a more complete basis for improving reduced-order control-effectiveness models and for defining the limits of applicability of nonlinear lifting-line methods in the presence of full-span control-surface deflection.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section*{Appendix}
+\appendix
+
+\section{Additional aerodynamic-coefficient comparisons}
+\label{app:additional_coefficients}
+
+Figure~\ref{fig:appendix_coefficients_delta30} reports the additional coefficient curves used to compute the finite-deflection control-effectiveness intervals discussed in Sec.~\ref{sec:effectiveness_results}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\linewidth]{ClCdCm_ExpvsNum_OnlyRef_Delta_0__10__20__30__34.pdf}
+    \caption{Additional comparison between wind tunnel, RANS, and DUST lifting-line aerodynamic coefficients for the reference configuration, including the \(\delta=30^\circ\) deflection used in the control-effectiveness analysis.}
+    \label{fig:appendix_coefficients_delta30}
+\end{figure}
+
+\clearpage
+
+\section*{Acknowledgments}
+This project has received funding from the Clean Sky 2 Joint Undertaking (JU) under grant agreement No 101008257. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the Clean Sky 2 JU members other than the Union.
+
+\bibliography{References}
+
+\end{document}
