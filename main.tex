@@ -1221,16 +1221,21 @@ The detailed topology at these states is interpreted as a RANS-based explanation
 
 The extent of upstream near-wall motion can also be quantified independently of the appearance of the skin-friction lines.
 For each displayed RANS state, Table~\ref{tab:fixed_reversal} gives the percentage of the upper fixed-surface region with negative chordwise wall shear.
-The region is selected geometrically ahead of the \(70\%\)-chord hinge, excluding the tip end cap, and is normalized by its actual surface area.
-The downstream chord direction is projected onto each surface triangle and normalized to obtain a local tangent \(\boldsymbol{t}_c\). The signed coefficient is \(C_{f,c}=\boldsymbol{C}_f\cdot\boldsymbol{t}_c\).
-The reversed fraction is
+The upper fixed-surface region, denoted by \(\mathcal{S}_{\mathrm{upper,fixed}}\), is selected geometrically ahead of the \(70\%\)-chord hinge, excluding the tip end cap.
+The downstream chord direction is projected onto each surface triangle and normalized to obtain a local tangent \(\boldsymbol{t}_c\).
+The signed chordwise skin-friction coefficient is \(C_{f,c}=\boldsymbol{C}_f\cdot\boldsymbol{t}_c\); a negative value identifies an upstream component of the near-wall flow along this direction.
+Let \(\mathcal{S}_{\mathrm{rev}}\) denote the subset of \(\mathcal{S}_{\mathrm{upper,fixed}}\) where \(C_{f,c}<0\).
+The reversed-area fraction is then
 \begin{equation}
-f_{\mathrm{rev}}=\frac{1}{A_{\mathrm{upper,fixed}}}
-\int_{A_{\mathrm{upper,fixed}}}\mathbf{1}_{C_{f,c}<0}\,\mathrm{d}A,
+f_{\mathrm{rev}}
+=\frac{A_{\mathrm{rev}}}{A_{\mathrm{upper,fixed}}}
+=\frac{\displaystyle\int_{\mathcal{S}_{\mathrm{rev}}}\mathrm{d}A}
+{\displaystyle\int_{\mathcal{S}_{\mathrm{upper,fixed}}}\mathrm{d}A},
 \label{eq:fixed_reversal}
 \end{equation}
-where the indicator is one where the projected shear is negative and zero elsewhere.
-The area is integrated by linear interpolation of the stored nodal shear on triangulated surface elements.
+where \(A_{\mathrm{rev}}\) is the actual surface area with negative chordwise shear and \(A_{\mathrm{upper,fixed}}\) is the actual area of the entire upper fixed-surface region.
+Thus \(f_{\mathrm{rev}}=0\) means that no reversal is detected, while \(f_{\mathrm{rev}}=1\) means that reversal covers the entire selected region; Table~\ref{tab:fixed_reversal} reports \(100f_{\mathrm{rev}}\) as a percentage.
+For each triangle, the stored nodal shear is interpolated linearly to locate the negative-shear portion, whose area contributes to \(A_{\mathrm{rev}}\).
 This measures chordwise near-wall reversal; it does not identify every three-dimensional separated region or measure its contribution to lift.
 
 \begin{table}[htbp]
