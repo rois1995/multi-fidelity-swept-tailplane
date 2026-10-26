@@ -1,0 +1,13 @@
+{
+  "WT/WTCoeffs_DA_0_LE_1.csv": "f1f418365f9ce4607c518a53cf48d2a79cf4dbb880b84527f8097d1f2196c836",
+  "RANS/Coeffs_DA_0.csv": "1d7b9d85ab4ce5d1e42edfe37540f133385ac8a6463d4be9b589aec6b55c1ec7",
+  "DUST/LIFTINGLINE/Coeffs_DA_0.csv": "b6d87c74a6aa37db154af90c8ad3c896156144713dd31c41fd81c122e676eb63",
+  "RANS/Coeffs_DA_0_Total.csv": "1d7b9d85ab4ce5d1e42edfe37540f133385ac8a6463d4be9b589aec6b55c1ec7",
+  "RANS/Coeffs_DA_0_UpWing.csv": "b96a5689f4722cdf21c65743e9bbb51d17d1ed24f83c5ec7b696d85db2b75c42",
+  "RANS/Coeffs_DA_0_DownWing.csv": "9cb44a48108cf9d63d9eb7074a02fce3db8f40cb30a6373b5e4e8a866768efc7",
+  "RANS/Coeffs_DA_0_UpFlap.csv": "871a8b6f8a3cdc71f091764528af4e29f05a0db92d0b3877934ad82bfd45111e",
+  "RANS/Coeffs_DA_0_DownFlap.csv": "361333da34e7c0c2f8d2e9181284a8b3aba3fd9686f1b286398c452556dbe874",
+  "RANS/Coeffs_DA_0_FlapJunction.csv": "f8e7357fdbb85c22d1553308cba331b6eaeb0d9674be32ca37cfeccd1242d2c1",
+  "RANS/Coeffs_DA_0_BluntTE.csv": "38e71c3d5f6b3f83178bdb1ea19e9c99dcb95840c0e7940259793930a9ca7331",
+  "RANS/Coeffs_DA_0_Tip.csv": "38b35aed940f67c0c53e518b3f3413a61fca3fb4f2ad9e5be0cd232255a92311"
+}

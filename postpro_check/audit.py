@@ -1,4 +1,3 @@
-import sys; sys.path.insert(0, sys.argv[1])
 from load import *
 cbar=0.679183673469
 w,r,l=WT(),RANS(),LL()

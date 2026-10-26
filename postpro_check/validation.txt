@@ -1,0 +1,29 @@
+Validation — 26 October 2026
+
+Command: python3 postpro_check/generate_figures.py
+PASS: plot identity, uncertainty signs, three-method coverage, baseline coefficient
+regressions, and the experimental 2.124/rad mean lift-effectiveness check.
+Command: python3 postpro_check/table3.py postpro_check
+PASS: published Table 3 values and common-reference-axis values reproduced.
+
+Command (from paper folder):
+latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=/tmp/tailplane-build main.tex
+PASS: 36-page PDF compiled; final main.log has no undefined references/citations.
+PASS: 42 unique labels, 36 references resolve; 25 citation keys exist.
+PASS: all directly included graphics exist (macro parameters excluded).
+PASS: pdftotext extraction contains no unresolved double-question-mark references.
+PASS: git diff --check.
+
+Visual inspection: all five plot PNG previews; rendered PDF pages 7 (installation),
+14 (surface-flow figure), and 24 (Table 3 and corrected moment-arm discussion).
+The plot data and source hashes are in figure_data.csv and figure_sources.json.
+Final PDF: main_comments_revised.pdf.
+
+Remaining typesetting notices: 53 overfull-box messages in
+geometry/legacy surface-flow tabular layouts and the regime summary, plus float
+placement notices. These do not prevent compilation. The field-image layouts
+were not redesigned in this revision; the inspected page remains readable.
+No new flow computation or experimental acquisition was performed. Original
+CSV sources and existing aerodynamic values were preserved. The installation
+photo was extracted from the supplied report; reproduction clearance was not
+independently checked.

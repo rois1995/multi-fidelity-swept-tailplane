@@ -1,5 +1,6 @@
 import csv, numpy as np
-ROOT='/media/rausa/4TB/MONNALISA/FinalFolderForResults/'
+from pathlib import Path
+ROOT = str(Path(__file__).resolve().parents[2]) + '/'
 def load(path):
     with open(ROOT+path) as f:
         rd=csv.DictReader(f); rows=list(rd)
