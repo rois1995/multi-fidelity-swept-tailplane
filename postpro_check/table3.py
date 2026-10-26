@@ -5,7 +5,7 @@ def deriv(n,d0,d1,key,dd=None):
     a0=C(n,d0,key); a1=C(n,d1,key); dd=dd if dd else d1-d0
     return {k:(a1[k]-a0[k])/np.deg2rad(dd) for k in a0 if k in a1}
 def mean(dic,rng): return np.mean([dic[a] for a in rng])
-rngs={(0,10):range(-6,1,2),(10,20):range(-14,-3,2)}
+rngs={(0,10):range(-10,-3,2),(10,20):range(-10,-3,2)}
 print('Method interval  CLd   CMd(own AC)  CMd(WT AC)  -CMd/CLd(own)')
 for (d0,d1),rg in rngs.items():
     for n in ['WT','RANS','LL']:

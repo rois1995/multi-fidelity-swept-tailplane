@@ -4,7 +4,7 @@ import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
 plt.rcParams.update({'font.family':'serif','mathtext.fontset':'cm','font.size':9})
 out=sys.argv[2]
 ints=[(0,10,0,10),(10,20,10,20),(20,30,20,30),(30,34,30,35)]   # (WT d0,d1, num d0,d1)
-bands={0:(-6,0),1:(-14,-4)}
+bands={0:(-10,-4),1:(-10,-4)}
 fig,ax=plt.subplots(2,4,figsize=(7.0,3.9),sharex=True,sharey='row')
 sty={'RANS':dict(color='#1f5fa8',ls='-',lw=1.3),'LL':dict(color='#d0711c',ls='--',lw=1.3)}
 for j,(w0,w1,n0,n1) in enumerate(ints):

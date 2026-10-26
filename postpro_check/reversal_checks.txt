@@ -1,0 +1,13 @@
+delta=0, alpha=12: 0.000%, 0.000%, 0.000%
+delta=0, alpha=14: 56.209%, 56.141%, 55.089%
+delta=0, alpha=18: 83.558%, 83.452%, 82.304%
+delta=10, alpha=8: 0.000%, 0.000%, 0.000%
+delta=10, alpha=10: 41.143%, 41.114%, 40.832%
+delta=10, alpha=18: 85.125%, 85.011%, 83.621%
+delta=20, alpha=6: 0.879%, 0.874%, 0.830%
+delta=20, alpha=10: 55.346%, 55.311%, 54.960%
+delta=20, alpha=14: 77.380%, 77.338%, 76.833%
+delta=35, alpha=8: 35.662%, 35.643%, 35.283%
+delta=35, alpha=10: 62.299%, 62.242%, 61.622%
+delta=35, alpha=26: 75.246%, 74.664%, 66.974%
+PASS: clipping fixtures, tangent projection, area bounds, and threshold monotonicity.

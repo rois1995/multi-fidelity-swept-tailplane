@@ -1,29 +1,37 @@
-Validation — 26 October 2026
+Comments 2 validation — 26 October 2026
+Baseline commit: feaeee1.
 
-Command: python3 postpro_check/generate_figures.py
-PASS: plot identity, uncertainty signs, three-method coverage, baseline coefficient
-regressions, and the experimental 2.124/rad mean lift-effectiveness check.
-Command: python3 postpro_check/table3.py postpro_check
-PASS: published Table 3 values and common-reference-axis values reproduced.
+PASS: python3 postpro_check/generate_figures.py.
+Four plots regenerated. Data identity, nonnegative uncertainty, baseline values,
+three-method coverage and new common-range WT lift means checked by assertions.
+All selected samples are within 3% of each interval mean. Adjacent -12/-2 deg
+samples fall outside that regular range.
+PASS: python3 postpro_check/table3.py postpro_check.
+Common-sample means, uncertainty summaries and common-axis moments reproduced.
 
-Command (from paper folder):
-latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=/tmp/tailplane-build main.tex
-PASS: 36-page PDF compiled; final main.log has no undefined references/citations.
-PASS: 42 unique labels, 36 references resolve; 25 citation keys exist.
-PASS: all directly included graphics exist (macro parameters excluded).
-PASS: pdftotext extraction contains no unresolved double-question-mark references.
-PASS: git diff --check.
+PASS: python3 postpro_check/reverse_flow.py.
+Twelve stored RANS fields; three shear thresholds; 36 derived records.
+Exact linear-triangle clipping fixtures, finite fields, positive areas, tangent
+projection, bounded fractions and threshold monotonicity checked.
+The geometry coordinates and clipping were also compared with the companion
+pre-stall implementation on seeded numerical fixtures and agreed.
+Results: fixed_surface_reversal.csv; source hashes: fixed_surface_sources.json.
+No source VTU files or aerodynamic CSV values were changed.
 
-Visual inspection: all five plot PNG previews; rendered PDF pages 7 (installation),
-14 (surface-flow figure), and 24 (Table 3 and corrected moment-arm discussion).
-The plot data and source hashes are in figure_data.csv and figure_sources.json.
-Final PDF: main_comments_revised.pdf.
+PASS: source coefficient CSV hashes agree with the feaeee1 source ledger.
+PASS: 42 unique LaTeX labels and 32 references resolve.
+PASS: latexmk -pdf -interaction=nonstopmode -halt-on-error
+-outdir=/tmp/tailplane-comments2-build main.tex.
+Final PDF: 34 pages; no undefined references/citations or extracted ?? marks.
+Local copy: main_comments2_revised.pdf.
+PASS: source whitespace check (raw generated *.log files excluded).
+Visual checks: new baseline/selected/effectiveness plots; compiled Table 3 and
+the new fixed-region reversal table. The review diff remains a local artifact.
 
-Remaining typesetting notices: 53 overfull-box messages in
-geometry/legacy surface-flow tabular layouts and the regime summary, plus float
-placement notices. These do not prevent compilation. The field-image layouts
-were not redesigned in this revision; the inspected page remains readable.
-No new flow computation or experimental acquisition was performed. Original
-CSV sources and existing aerodynamic values were preserved. The installation
-photo was extracted from the supplied report; reproduction clearance was not
-independently checked.
+Limits: these are diagnostics of existing steady RANS snapshots. Reversed
+chordwise shear is not the full 3D separated-flow footprint. The upper region is
+selected geometrically, not by asserting native SU2 marker identity. The
+26-deg-incidence, 35-deg-deflection state is sensitive to the small-shear threshold
+(75.2% at zero, 67.0% below -1e-4); this is reported in the manuscript.
+No new CFD or experimental measurements were performed. Existing field-figure
+layout/float warnings remain and do not prevent compilation.

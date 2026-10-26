@@ -59,19 +59,22 @@ def title(d):
     return rf'$\delta={d}^\circ$' if d != 34 else '$\\delta=34^\\circ$ (WT)\n$35^\\circ$ (num.)'
 
 for name, deltas in [('Coefficients_baseline',[0]),
-                     ('Coefficients_selected',[0,10,20,34]),
-                     ('Coefficients_complete',[0,10,20,30,34])]:
-    fig, axes = plt.subplots(3,len(deltas),figsize=(7,5.5),sharex=True,sharey='row',squeeze=False)
+                     ('Coefficients_selected',[0,10,20,30,34])]:
+    baseline = name == 'Coefficients_baseline'
+    fig, axes = plt.subplots(1 if baseline else 3, 3 if baseline else len(deltas),
+        figsize=(7,2.6) if baseline else (7,5.5), sharex=True,
+        sharey=False if baseline else 'row', squeeze=False)
     for j,d in enumerate(deltas):
         for i,key in enumerate(KEYS):
-            ax=axes[i,j]; frame(ax)
+            ax=axes[0,i] if baseline else axes[i,j]
+            frame(ax)
             for n in STYLE:
                 dn=35 if d==34 and n!='WT' else d
                 err=C('WT',d,{'CL':'sCL','CD':'sigmaCD','CM':'sCM'}[key]) if n=='WT' else None
                 draw(ax,C(n,dn,key),n,name,key,dn,err)
-            if j==0: ax.set_ylabel(YLAB[i])
-            if i==0: ax.set_title(title(d),fontsize=9)
-            if i==2: ax.set_xlabel(r'$\alpha$ [deg]')
+            if baseline or j==0: ax.set_ylabel(YLAB[i])
+            if not baseline and i==0: ax.set_title(title(d),fontsize=9)
+            if baseline or i==2: ax.set_xlabel(r'$\alpha$ [deg]')
     finish(fig,name)
 
 # Same finite differences and uncertainty propagation as the existing Fig. 7 renderer.
@@ -80,7 +83,7 @@ intervals=[(0,10),(10,20),(20,30),(30,34)]
 for j,(d0,d1) in enumerate(intervals):
     for i,key in enumerate(['CL','CM']):
         ax=axes[i,j];frame(ax)
-        if j<2: ax.axvspan(*[(-6,0),(-14,-4)][j],color='0.88',zorder=0)
+        if j<2: ax.axvspan(*(-10,-4),color='0.88',zorder=0)
         for n in STYLE:
             dn=35 if d1==34 and n!='WT' else d1
             c0,c1=C(n,d0,key),C(n,dn,key)
@@ -96,7 +99,7 @@ for j,(d0,d1) in enumerate(intervals):
 axes[0,0].set_ylabel(r'$C_{L,\delta}$ [rad$^{-1}$]');axes[0,0].set_ylim(-2,3.5)
 axes[1,0].set_ylabel(r'$C_{M_y,\delta}$ [rad$^{-1}$]');axes[1,0].set_ylim(-1.6,.6)
 finish(fig,'ControlEffectiveness_revised',
-       [Line2D([],[],label=LABEL[n],**STYLE[n]) for n in STYLE]+[Patch(color='0.88',label=r'Averaging range $\mathcal{A}$')])
+       [Line2D([],[],label=LABEL[n],**STYLE[n]) for n in STYLE]+[Patch(color='0.88',label=r'Averaging samples $\mathcal{A}$')])
 
 # Preserve the patch accounting used in comparison_DistinctSurfaces.m.
 patches={p:load(f'RANS/Coeffs_DA_0_{p}.csv') for p in
@@ -124,10 +127,17 @@ finish(fig,'Load_decomposition',[Line2D([],[],label=label+(' ($4C_L$)' if label=
 
 # Numerical regression checks against the manuscript and an independently written difference.
 assert np.isclose(C('WT',0,'CL')[12],.7195,atol=5e-5)
-assert np.isclose(np.mean([(C('WT',10,'CL')[a]-C('WT',0,'CL')[a])/np.deg2rad(10) for a in [-6,-4,-2,0]]),2.124,atol=.0005)
+assert np.isclose(np.mean([(C('WT',10,'CL')[a]-C('WT',0,'CL')[a])/np.deg2rad(10) for a in [-10,-8,-6,-4]]),2.071,atol=.0005)
 assert np.isclose(C('RANS',0,'CL')[12],.7875,atol=5e-5)
-assert all(any(r['figure']==f and r['method']==n for r in ledger) for f in ['Coefficients_baseline','Coefficients_selected','Coefficients_complete','ControlEffectiveness_revised'] for n in STYLE)
+for d0,d1 in [(0,10),(10,20)]:
+    response={a:(C('WT',d1,'CL')[a]-C('WT',d0,'CL')[a])/np.deg2rad(10)
+              for a in range(-12,-1,2)}
+    values=np.array([response[a] for a in [-10,-8,-6,-4]])
+    assert np.max(np.abs(values/values.mean()-1))<.03
+    adjacent=-12 if d0==0 else -2
+    assert response[adjacent]<.95*values.mean()
+assert all(any(r['figure']==f and r['method']==n for r in ledger) for f in ['Coefficients_baseline','Coefficients_selected','ControlEffectiveness_revised'] for n in STYLE)
 with (OUT/'postpro_check/figure_data.csv').open('w') as f:
-    writer=csv.DictWriter(f,fieldnames=list(ledger[0]));writer.writeheader();writer.writerows(ledger)
+    writer=csv.DictWriter(f,fieldnames=list(ledger[0]),lineterminator='\n');writer.writeheader();writer.writerows(ledger)
 (OUT/'postpro_check/figure_sources.json').write_text(json.dumps({p:hashlib.sha256(Path(ROOT,p).read_bytes()).hexdigest() for p in sources},indent=2)+'\n')
-print('Generated five figures; data identity and coefficient regression checks passed.')
+print('Generated four figures; data identity and coefficient regression checks passed.')

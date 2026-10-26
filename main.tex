@@ -106,7 +106,7 @@ Wind-tunnel measurements are compared with a nonlinear lifting-line model and th
 The analysis is organized by aerodynamic regime to distinguish attached flow, control-surface separation, main-surface stall, and post-stall behavior.
 Both numerical methods reproduce the main lift trends in attached and weakly nonlinear conditions, but the lifting-line model shows increasing discrepancies in pitching moment, control effectiveness, and separated-flow regimes.
 The Reynolds-averaged Navier-Stokes simulations provide a more consistent description of the separated-flow topology, although they predict a stall onset sharper than observed experimentally.
-Surface-flow visualizations show extensive separation at or shortly after the experimental maximum-lift incidence, consistent with a progressive development of separation, whereas the simulated flow remains largely attached up to the predicted maximum-lift state and then separates abruptly.
+Surface-flow visualizations show extensive separation at or shortly after the experimental maximum-lift incidence, consistent with a progressive development of separation, whereas at the lower deflections the simulated fixed-surface flow remains largely attached up to maximum lift and then separates abruptly.
 The resulting comparison defines the regimes in which each fidelity level remains informative and identifies the modeling assumptions that limit their accuracy for unconventional swept tailplanes with full-span control surfaces.
 \end{abstract}
 
@@ -738,19 +738,16 @@ Compared with the undeflected configuration, a positive trailing-edge deflection
 As a result, local separation over the control surface may occur before main-surface stall.
 The comparison is first performed in terms of the global aerodynamic coefficients and is then used to identify the incidence and deflection ranges where the numerical predictions depart from the wind tunnel measurements.
 
-All available deflections are included in the quantitative analysis.
-However, to preserve the readability of the coefficient plots, the main figures show only selected representative deflections.
-The complete set of curves is reported in Appendix~\ref{app:additional_coefficients}.
-The main text focuses on the deflections that best illustrate the transition from attached-flow behavior to control-surface separation and main-surface stall.
+All five measured deflections are included in the coefficient comparison. Each column shows one setting so that the three methods can be compared without superimposing multiple deflections.
 
 \begin{figure}
 \centering
 \includegraphics[width=1\linewidth]{Coefficients_selected.pdf}
-\caption{Comparison between wind tunnel, RANS, and DUST lifting-line aerodynamic coefficients for selected control-surface deflections.}
+\caption{Comparison between wind tunnel, RANS, and DUST lifting-line aerodynamic coefficients for all control-surface deflections.}
 \label{fig:Coefficients:ExpvsNum:Delta0_10_20_34}
 \end{figure}
 
-Figure~\ref{fig:Coefficients:ExpvsNum:Delta0_10_20_34} compares the wind tunnel, RANS, and DUST lifting-line aerodynamic coefficients for $\delta\in\{0^\circ,10^\circ,20^\circ,34^\circ\}$.
+Figure~\ref{fig:Coefficients:ExpvsNum:Delta0_10_20_34} compares the wind tunnel, RANS, and DUST lifting-line aerodynamic coefficients for $\delta\in\{0^\circ,10^\circ,20^\circ,30^\circ,34^\circ\}$.
 As the control surface is deflected, the symmetry of the undeflected configuration is lost.
 Consequently, the aerodynamic-coefficient curves at positive and negative incidences differ markedly.
 
@@ -943,13 +940,12 @@ The effectiveness is evaluated over the intervals \([0^\circ,10^\circ]\), \([10^
 These are secant slopes over finite deflection intervals, rather than exact local derivatives. The first interval represents the low-deflection control effectiveness, whereas the subsequent intervals quantify the finite-deflection response as the aerodynamic behavior becomes progressively nonlinear.
 
 Each method's pitching moment is referred to its own aerodynamic center.
-    Grey bands mark the averaging ranges of Table~\ref{tab:control_effectiveness}.
-    In the last column, the numerical interval is \([30^\circ,35^\circ]\).
+The last numerical interval is \([30^\circ,35^\circ]\), using its actual \(5^\circ\) width.
 
 \begin{figure}
     \centering
     \includegraphics[width=1\linewidth]{ControlEffectiveness_revised.pdf}
-    \caption{Lift and pitching-moment control effectiveness for successive deflection intervals; grey bands indicate the incidence averaging ranges.}
+    \caption{Lift (top) and pitching-moment (bottom) control effectiveness for successive deflection intervals.}
     \label{fig:AeroCoeffs:control_effectiveness}
 \end{figure}
 
@@ -964,8 +960,8 @@ For the low-deflection interval \(\delta\in[0^\circ,10^\circ]\), the \(C_{L,\del
 This behavior indicates that when the flow remains attached to both the fixed and control surfaces, the lift response to deflection is nearly linear.
 The wind tunnel results show an initial reduction in control effectiveness at positive incidences, consistent with the change in the \(C_L\)--\(\alpha\) slope visible in Fig.~\ref{fig:Coefficients:ExpvsNum:Delta0_10_20_34}.
 Both numerical approaches reproduce the attached-flow level with reasonable accuracy, although they slightly overpredict the lift control derivative.
-However, the numerical results do not capture the experimentally observed initial loss of effectiveness at small positive incidence.
-As incidence increases further on both branches and separation develops over larger portions of the surface, the wind tunnel curve shows a progressive reduction in lift effectiveness.
+RANS reproduces the initial decrease at small positive incidence, although its effectiveness remains higher than measured and the subsequent reduction is delayed toward larger incidences. The lifting-line response remains nearly flat over this initial decrease.
+As the absolute incidence increases along either the positive- or negative-incidence branch and separation develops over larger portions of the surface, the wind tunnel curve shows a progressive reduction in lift effectiveness.
 The RANS simulations predict a more abrupt degradation, consistent with the sharper transition between attached and separated states already observed in the global lift curves.
 The lifting-line prediction also captures the overall reduction of effectiveness, but its behavior becomes less regular as the flow enters the nonlinear regime.
 
@@ -978,9 +974,8 @@ At higher positive incidences, the agreement with the wind tunnel data improves 
 On the negative-incidence branch, the larger values of \(C_{L,\delta}\) confirm that the control surface remains more effective when the local flow over the deflected surface is less prone to separation.
 
 For the interval \(\delta\in[20^\circ,30^\circ]\), the wind tunnel lift effectiveness falls to approximately zero for \(-6^\circ\leq\alpha\leq-2^\circ\), and then recovers to approximately \(0.9\) at \(\alpha=4^\circ\).
-In this incidence range, increasing the deflection from \(20^\circ\) to \(30^\circ\) produces no additional lift.
-This indicates that the incremental lift generated as the deflection increases from \(20^\circ\) to \(30^\circ\) is no longer governed by a simple attached-flow response.
-Instead, it reflects the incidence-dependent evolution of control-surface separation and the redistribution of the load over the fixed surface.
+In this incidence range, increasing the deflection from \(20^\circ\) to \(30^\circ\) produces little additional lift within the experimental uncertainty.
+If the attached-flow response observed at smaller deflections persisted, an additional \(10^\circ\) of deflection would still give a positive lift increment. Instead, the \(20^\circ\) and \(30^\circ\) lift curves nearly coincide in this incidence range. This establishes a loss of incremental lift response. The RANS control-surface unloading in Fig.~\ref{fig:Coefficients:ExpvsNum:Delta20_34_Division} provides a possible separation-related explanation, but the experimental global coefficients alone do not identify which surface regions gain or lose load.
 At larger positive incidences, the derivative tends to level off, consistent with the lift-retaining behavior of positively swept lifting surfaces in the post-stall regime.
 The RANS simulations agree with the wind tunnel data at higher incidences, especially after stall onset.
 Around \(\alpha=-2^\circ\), however, RANS predicts a negative lift effectiveness of approximately \(-0.5\), that is, a loss of lift with increasing deflection, which is not observed experimentally.
@@ -992,17 +987,17 @@ This behavior is consistent with the fact that, at these large deflections, the 
 Because this derivative is computed over a narrow \(4^\circ\) deflection interval, the corresponding curves are more sensitive to local variations and should be interpreted more cautiously than the wider \(10^\circ\) intervals.
 The near-zero plateau observed in the previous interval is no longer present, suggesting that the additional deflection from \(30^\circ\) to \(34^\circ\) does not produce the same change in control-surface state.
 
-The pitching-moment derivative shows larger discrepancies among the methods than the lift derivative.
+The bottom row of Fig.~\ref{fig:AeroCoeffs:control_effectiveness} shows the pitching-moment derivative. Its discrepancies among methods are larger than those of the lift derivative in the top row.
 The RANS simulations provide the closest overall agreement with the wind tunnel data, whereas the lifting-line results show larger deviations, consistent with the pitching-moment discrepancies discussed in the previous subsection.
 At positive incidences, the magnitude of \(C_{M_y,\delta}\) decreases markedly when moving from the low-deflection interval \([0^\circ,10^\circ]\) to the finite-deflection interval \([10^\circ,20^\circ]\).
 This reduction indicates a loss of pitching-moment control effectiveness associated with the onset of control-surface separation and with the corresponding redistribution of the incremental aerodynamic load.
-At negative incidences, the effectiveness changes less over the same deflection interval, indicating that the load distribution varies more nearly linearly with control-surface deflection when the deflected surface remains attached.
+At negative incidences, the effectiveness changes less over the same deflection interval, showing that the pitching-moment increments per degree of deflection remain closer to one another on this branch.
 
 For the larger deflection intervals, the wind tunnel curves remain in a lower-effectiveness regime, and further increases in deflection do not produce a comparable additional reduction in \(C_{M_y,\delta}\).
-In particular, for the interval \([20^\circ,30^\circ]\), the measured pitching-moment effectiveness becomes positive, approximately \(0.14\)--\(0.17\), for \(-8^\circ\leq\alpha\leq-2^\circ\), in the same range in which the lift effectiveness vanishes.
-The additional deflection therefore produces a nose-up moment without additional lift, which indicates that load is lost near the trailing edge and partly recovered upstream of the aerodynamic center.
+In particular, for the interval \([20^\circ,30^\circ]\), the measured pitching-moment effectiveness becomes positive, approximately \(0.14\)--\(0.17\), for \(-8^\circ\leq\alpha\leq-2^\circ\), in the same range in which the lift effectiveness approaches zero.
+The additional deflection therefore changes the pitching moment even though the net lift changes little. The force and moment increments do not vary in the same proportion. This observation does not locate the associated loading changes: the global coefficients alone cannot establish where compensating load gains and losses occur.
 As the incidence becomes more negative, the control effectiveness increases again, suggesting that the local flow over the control surface returns to a more favorable state.
-Once the deflected surface is substantially separated, at large deflections and large absolute incidences, the incremental pitching-moment response is governed primarily by load redistribution over the remaining attached and separated regions rather than by a simple increase in control-surface loading.
+At large deflections, neither lift nor pitching-moment effectiveness remains constant with incidence. The separated RANS topologies discussed in the next subsection help interpret this behavior; the derivative curves alone do not establish its spatial cause.
 
 For the last interval, \(\delta\in[30^\circ,34^\circ]\), the wind tunnel pitching-moment effectiveness is low and affected by larger uncertainty.
 As noted above, this interval is more sensitive to finite-difference noise because it is computed over a smaller deflection range.
@@ -1011,99 +1006,66 @@ These conditions are challenging to simulate because the control surface operate
 As a result, small differences in the predicted separation onset produce large variations in the computed incremental lift and pitching-moment response.
 
 
-Table~\ref{tab:control_effectiveness} summarizes the regular negative-incidence portions of Fig.~\ref{fig:AeroCoeffs:control_effectiveness}: \(\alpha\in[-6^\circ,0^\circ]\) for \([0^\circ,10^\circ]\) and \(\alpha\in[-14^\circ,-4^\circ]\) for \([10^\circ,20^\circ]\), sampled every \(2^\circ\).
-The intervals \([0^\circ,10^\circ]\) and \([10^\circ,20^\circ]\) exhibit a sufficiently regular negative-incidence range and are therefore reduced to averaged reference values.
-The larger deflection intervals, \([20^\circ,30^\circ]\) and \([30^\circ,34^\circ]\), are not included in the table because their derivative curves are strongly incidence-dependent and do not exhibit a clear reference plateau.
-For these intervals, reducing the response to a single averaged value would obscure the separated-flow mechanisms already visible in Fig.~\ref{fig:AeroCoeffs:control_effectiveness}.
-The \([30^\circ,34^\circ]\) interval is also more sensitive to finite-difference noise because it is computed over a narrower deflection range.
+The derivative curves answer two different questions: how much response is obtained before the strong loss of effectiveness, and how that response changes as incidence increases. Table~\ref{tab:control_effectiveness} addresses the first question by comparing mean lift and pitching-moment increments per radian over the same four incidences for both deflection intervals and all three methods.
+Using a common incidence range avoids confusing a change in deflection response with a change in the averaging conditions.
 
-To compare the attached-branch response without fitting a constant derivative across separation, the reference effectiveness is defined here as the arithmetic mean over the stated incidence samples:
+The selected samples are \(\mathcal{A}=\{-10^\circ,-8^\circ,-6^\circ,-4^\circ\}\), shown by the grey bands in Fig.~\ref{fig:AeroCoeffs:control_effectiveness}.
+Over these samples, the measured lift effectiveness lies between \(2.036\) and \(2.088~\mathrm{rad}^{-1}\) for \([0^\circ,10^\circ]\), and between \(1.901\) and \(2.004~\mathrm{rad}^{-1}\) for \([10^\circ,20^\circ]\); every value is within \(3\%\) of its interval mean.
+The adjacent samples explain the limits of this range. At \(\alpha=-12^\circ\), the first interval has already fallen to \(1.874~\mathrm{rad}^{-1}\), whereas at \(\alpha=-2^\circ\), the second interval has fallen to \(1.673~\mathrm{rad}^{-1}\).
+Including either end would mix the approximately constant response with its incidence-dependent reduction.
+The larger deflection intervals are omitted because neither has a comparable plateau over this common range.
+The selection describes a regular part of the measured response; it is not an independent experimental verification of fully attached flow at every sample.
+
+For either \(Q=L\) or \(Q=M_y\), the reported mean is
 \begin{equation}
 \overline{C}_{Q,\delta}^{[\delta_i,\delta_j]}
-=
-\frac{1}{N_{\mathcal{A}^{[\delta_i,\delta_j]}}}
-\sum_{\alpha_k\in\mathcal{A}^{[\delta_i,\delta_j]}}
+=\frac{1}{4}\sum_{\alpha_k\in\mathcal{A}}
 C_{Q,\delta}^{[\delta_i,\delta_j]}(\alpha_k).
 \label{eq:control_effectiveness_average}
 \end{equation}
-The averaging range \(\mathcal{A}^{[\delta_i,\delta_j]}\) is selected from the wind tunnel derivative curve and then applied unchanged to the RANS and DUST lifting-line data.
-This choice ensures that the comparison among fidelity levels is performed over the same incidence range. The resulting averages characterize those ranges only; the two intervals use different incidence samples and therefore do not isolate a pure deflection effect. All tabulated moments are evaluated about each method's own aerodynamic center. The wind tunnel uncertainty shown is the mean of the pointwise propagated uncertainty intervals, rather than a confidence interval of the mean.
+This is an average of the finite differences already plotted, not a new fit or a constant valid over the full operating range.
+All moments use each method's own undeflected aerodynamic-center axis.
+The experimental uncertainty shown is the mean of the pointwise propagated uncertainty intervals; it is not a confidence interval of the mean.
 
 \begin{table}[htbp]
-    \centering
-    \caption{Mean control effectiveness over the selected negative-incidence ranges (per radian).}
-    \label{tab:control_effectiveness}
-    \begin{tabular}{llccc}
-        \hline
-        \hline
-        Method
-        & Interval
-        & \(\mathcal{A}^{[\delta_i,\delta_j]}\)
-        & \(\overline{C}_{L,\delta}\)
-        & \(\overline{C}_{M_y,\delta}\)
-        \\
-        \hline
-        Wind tunnel & \([0^\circ,10^\circ]\) & \([-6^\circ,0^\circ]\) & 2.124$\pm$0.047 & -0.535$\pm$0.023 \\
-        Wind tunnel & \([10^\circ,20^\circ]\) & \([-14^\circ,-4^\circ]\) & 1.927$\pm$0.051 & -0.489$\pm$0.034 \\
-        \hline
-        RANS & \([0^\circ,10^\circ]\) & \([-6^\circ,0^\circ]\) & 2.477 & -0.535 \\
-        RANS & \([10^\circ,20^\circ]\) & \([-14^\circ,-4^\circ]\) & 2.362 & -0.483 \\
-        \hline
-        DUST lifting line & \([0^\circ,10^\circ]\) & \([-6^\circ,0^\circ]\) & 2.538 & -0.926 \\
-        DUST lifting line & \([10^\circ,20^\circ]\) & \([-14^\circ,-4^\circ]\) & 2.358 & -0.984 \\
-        \hline
-        \hline
-    \end{tabular}
+\centering
+\caption{Mean control effectiveness over the common incidence range \(-10^\circ\leq\alpha\leq-4^\circ\) (per radian).}
+\label{tab:control_effectiveness}
+\begin{tabular}{llcc}
+\hline\hline
+Method & Deflection interval & \(\overline{C}_{L,\delta}\) & \(\overline{C}_{M_y,\delta}\) \\
+\hline
+Wind tunnel & \([0^\circ,10^\circ]\) & \(2.071\pm0.060\) & \(-0.507\pm0.030\) \\
+Wind tunnel & \([10^\circ,20^\circ]\) & \(1.955\pm0.046\) & \(-0.498\pm0.030\) \\
+\hline
+RANS & \([0^\circ,10^\circ]\) & 2.374 & -0.507 \\
+RANS & \([10^\circ,20^\circ]\) & 2.428 & -0.502 \\
+\hline
+DUST lifting line & \([0^\circ,10^\circ]\) & 2.501 & -0.909 \\
+DUST lifting line & \([10^\circ,20^\circ]\) & 2.450 & -0.985 \\
+\hline\hline
+\end{tabular}
 \end{table}
 
-The values reported in Table~\ref{tab:control_effectiveness} show that, on the negative-incidence branch, the control effectiveness decreases only moderately when the deflection interval is increased from \([0^\circ,10^\circ]\) to \([10^\circ,20^\circ]\).
-Across the two stated incidence ranges, the wind tunnel averaged lift effectiveness decreases from \(2.124\pm0.047\) to \(1.927\pm0.051\), a reduction of approximately \(9\%\).
-The magnitude of pitching-moment effectiveness decreases by a similar fraction, from \(0.535\pm0.023\) to \(0.489\pm0.034\).
-The ratio \(-\overline{C}_{M_y,\delta}/\overline{C}_{L,\delta}\) therefore remains close to \(0.25\) in both intervals.
-This ratio defines an effective incremental moment arm, \(\ell_{\mathrm{eff}}/\bar{c}\equiv-\Delta M_y/(\bar{c}\,\Delta L)\). A positive value corresponds to a nose-down incremental moment accompanying positive incremental lift. It approximates a downstream load-centroid distance only if the incremental force is predominantly lift and contributions from drag, vertical offsets, and any residual couple are negligible. It is therefore used as a moment-to-lift diagnostic, not as a direct measurement of the load centroid. Its similar values in the two averaging ranges indicate a similar balance of incremental lift and moment.
-The strong loss of effectiveness visible in Fig.~\ref{fig:AeroCoeffs:control_effectiveness} occurs instead in incidence: for \([10^\circ,20^\circ]\), the wind tunnel lift effectiveness falls from approximately \(1.9\) at \(\alpha=-4^\circ\) to \(1.0\) at \(\alpha=0^\circ\) and \(0.7\) at \(\alpha=2^\circ\), when the control surface separates.
-A constant derivative is therefore adequate on the attached negative-incidence branch, but not across the onset of control-surface separation.
+On this common incidence range, the measured mean lift effectiveness decreases by approximately \(6\%\) between the two deflection intervals, while the magnitude of the mean moment effectiveness changes by approximately \(2\%\).
+These changes are small compared with the strong reduction near zero incidence: for \([10^\circ,20^\circ]\), measured lift effectiveness falls from approximately \(1.9~\mathrm{rad}^{-1}\) at \(\alpha=-4^\circ\) to \(1.0~\mathrm{rad}^{-1}\) at \(\alpha=0^\circ\), then to \(0.7~\mathrm{rad}^{-1}\) at \(\alpha=2^\circ\).
+The mean values therefore provide a reference for comparing methods before that loss; the complete curves remain necessary to describe the control response outside the selected range.
 
-The RANS simulations overpredict the lift control effectiveness in both intervals, by approximately \(17\%\) for \([0^\circ,10^\circ]\) and \(23\%\) for \([10^\circ,20^\circ]\).
-The pitching-moment effectiveness is instead reproduced within approximately \(1\%\) in both intervals.
-The RANS effective moment-arm ratio, approximately \(0.22\) and \(0.20\), is slightly lower than the experimental value.
-The larger computed lift increment is therefore accompanied by a smaller nose-down moment per unit incremental lift.
-
-The DUST lifting-line model overpredicts lift effectiveness by approximately \(19\%\) and \(22\%\), similar to RANS.
-However, the magnitude of its pitching-moment effectiveness is overpredicted by approximately \(73\%\) for \([0^\circ,10^\circ]\) and by approximately a factor of two for \([10^\circ,20^\circ]\).
-Moreover, the lifting-line model predicts an increase in pitching-moment effectiveness between the two intervals, whereas the wind tunnel data show a decrease.
-The effective moment-arm ratio is approximately \(0.37\) and \(0.42\) for the lifting-line model, compared with approximately \(0.25\) experimentally.
-These ratios depend on the moment origin, so they do not alone establish an absolute load-centroid error.
-The lifting-line aerodynamic center also lies approximately \(0.07~\mathrm{m}\) downstream of the experimental one (Table~\ref{tab:Delta0:AC}).
-Transporting the numerical moments to the wind tunnel aerodynamic-center axis using the body-normal force increases the lifting-line moment-effectiveness discrepancy to factors of approximately \(2.2\) and \(2.5\), respectively.
-Thus the moment discrepancy persists at a common reference axis and is larger than the lift discrepancy, indicating a limitation in the predicted load distribution.
-
+RANS overpredicts mean lift effectiveness by approximately \(15\%\) and \(24\%\), respectively, but reproduces mean moment effectiveness within \(1\%\) in both intervals.
+DUST overpredicts mean lift effectiveness by approximately \(21\%\) and \(25\%\), while the magnitude of its mean moment effectiveness is approximately \(79\%\) and \(98\%\) too large.
+Thus reasonable agreement in lift response does not guarantee comparable agreement in pitching moment.
+This difference is not removed by using a common moment axis: transporting the DUST moments to the experimental aerodynamic-center axis gives mean effectiveness values of approximately \(-1.164\) and \(-1.232~\mathrm{rad}^{-1}\), versus \(-0.507\) and \(-0.498~\mathrm{rad}^{-1}\) experimentally.
+The comparison establishes an error in the predicted balance of force and moment; it does not uniquely determine the position of an incremental load centroid.
 
 
 
 \subsection{Main-surface stall and post-stall behavior}
 \label{sec:main_stall_results}
 
-The previous subsections focused on the nonlinearities associated with control-surface deflection and with the corresponding loss of control effectiveness.
-These effects may occur even while the fixed portion of the tailplane remains largely attached.
-A separate analysis is therefore required to distinguish control-surface-dominated separation from main-surface stall and from the subsequent post-stall behavior.
-
-This subsection examines flow evolution at higher incidences, where separation extends upstream of the hinge line and modifies the global aerodynamic response of the complete tailplane.
-The analysis is based on the RANS surface-flow topologies reported in Fig.~\ref{fig:FlowTopology:Delta_0_10_20_34}.
-For each control-surface deflection, three representative states are selected from the RANS lift curve to describe comparable stages of stall evolution.
-
-The first state corresponds to the incidence at which the RANS lift coefficient reaches its maximum value.
-Under this condition, the fixed portion of the tailplane remains largely attached, and the flow state therefore represents the last high-lift condition predicted before the abrupt stall transition.
-The second state corresponds to the first computed incidence after the maximum-lift condition.
-This state documents the rapid development of main-surface separation and the associated loss of lift predicted by RANS.
-The third state corresponds to a deep post-stall condition, selected after the main lift drop, when the separated-flow topology is fully developed.
-The selected incidences therefore differ across deflections but correspond to comparable stages of the RANS stall and post-stall evolution.
-
-
-
-Each row corresponds to a fixed deflection angle.
-The columns correspond to the RANS maximum-lift state, the first incidence after the main lift drop, and a post-stall low-lift state.
-The actual values of \(\alpha\) are reported in each panel.
+The higher-incidence comparison distinguishes separation of the control surface from separation spreading over the fixed main surface.
+Figure~\ref{fig:FlowTopology:Delta_0_10_20_34} shows three RANS states for each deflection: maximum lift, a post-peak state after the marked lift drop, and a later post-stall state.
+The actual incidences are printed in the panels; the selected post-peak state is not necessarily the immediately following computed incidence.
+The rows correspond to the four displayed deflections.
 
 \begin{figure}[h!]
 \centering
@@ -1232,7 +1194,6 @@ $\boldsymbol{\alpha}_{\mathbf{C}_{\mathbf{L,\mathrm{\mathbf{min}}}}^{\mathrm{\ma
 \label{fig:FlowTopology:Delta_0_10_20_34}
 \end{figure}
 
-The first column of Fig.~\ref{fig:FlowTopology:Delta_0_10_20_34} corresponds to the maximum-lift state predicted by RANS for each control-surface deflection.
 For the lower deflections, the maximum lift coefficient is reached while the flow remains attached over most of the tailplane.
 As deflection increases, a recirculating region first appears near the trailing edge and then progressively extends over the deflected control surface.
 Because the main contribution to the integrated lift still comes from the fixed surface, the lift loss associated with control-surface separation does not prevent the development of the maximum lift coefficient.
@@ -1240,7 +1201,7 @@ At \(\delta=34^\circ\), the maximum-lift state occurs when separation already af
 Nevertheless, the inboard region remains largely attached.
 Because this region has a larger local chord due to the tapered planform, it contributes significantly to the integrated lift.
 
-The second column reports the first post-peak incidence, where the abrupt drop in \(C_L\) is visible in the RANS lift curve.
+In the selected post-peak states, the RANS lift curves have undergone a marked decrease.
 In the zero-deflection case, this condition is associated with a leading-edge separated region that extends over most of the span.
 A strong suction peak remains visible within the separated structure, but the large recirculating region causes a sudden reduction in integrated lift.
 At \(\delta=10^\circ\), the separated structure shifts downstream relative to the zero-deflection case and lies closer to the hinge region.
@@ -1249,37 +1210,68 @@ In both cases, the most inboard stations remain largely attached, consistent wit
 For the largest deflection, \(\DeltaSimple{34}\), the control surface is already separated over most of the span before the post-peak condition is reached.
 The additional lift loss therefore comes from extending separation over the fixed surface rather than from the initial separation of the deflected surface.
 
-The last column shows a deep-post-stall condition, selected near the minimum value of \(C_L\) predicted by RANS after the main lift drop.
+At the later post-stall states, the separated structures have spread farther over the main surface.
 For \(\delta=0^\circ\), the separated structure has moved further inboard, leaving only a narrow attached region near the root.
 For the intermediate deflections, \(\DeltaSimple{10}\) and \(\DeltaSimple{20}\), the recirculating region associated with the control surface remains visible, while an additional separated region develops near the leading edge because of the larger incidence.
 The resulting topology indicates that the post-stall state is governed by the interaction between the control-surface and main-surface separations.
 For \(\DeltaSimple{34}\), the flow field becomes more irregular and does not exhibit a single well-defined recirculating cell.
 This condition is particularly challenging for a steady RANS calculation because the control surface and the fixed surface are both largely separated, and small changes in the predicted separation pattern can produce substantial changes in the local load distribution.
 The good agreement obtained for the integrated lift coefficient indicates that the dominant post-stall load level is reasonably captured.
-However, because wind tunnel surface-flow visualization is not available at this incidence, interpret the detailed topology as a RANS-based explanation of the numerical result rather than a direct validation of the local separated-flow structure.
+The detailed topology at these states is interpreted as a RANS-based explanation, since matching experimental surface-flow visualizations are not available for every incidence.
 
-A direct one-to-one comparison between the wind tunnel visualizations and the RANS topologies is not possible because the two datasets reach stall through different paths.
+The extent of upstream near-wall motion can also be quantified independently of the appearance of the skin-friction lines.
+For each displayed RANS state, Table~\ref{tab:fixed_reversal} gives the percentage of the upper fixed-surface region with negative chordwise wall shear.
+The region is selected geometrically ahead of the \(70\%\)-chord hinge, excluding the tip end cap, and is normalized by its actual surface area.
+The downstream chord direction is projected onto each surface triangle and normalized to obtain a local tangent \(\boldsymbol{t}_c\). The signed coefficient is \(C_{f,c}=\boldsymbol{C}_f\cdot\boldsymbol{t}_c\).
+The reversed fraction is
+\begin{equation}
+f_{\mathrm{rev}}=\frac{1}{A_{\mathrm{upper,fixed}}}
+\int_{A_{\mathrm{upper,fixed}}}\mathbf{1}_{C_{f,c}<0}\,\mathrm{d}A,
+\label{eq:fixed_reversal}
+\end{equation}
+where the indicator is one where the projected shear is negative and zero elsewhere.
+The area is integrated by linear interpolation of the stored nodal shear on triangulated surface elements.
+This measures chordwise near-wall reversal; it does not identify every three-dimensional separated region or measure its contribution to lift.
+
+\begin{table}[htbp]
+\centering
+\caption{Upper fixed-region reversed-shear area at the RANS states in Fig.~\ref{fig:FlowTopology:Delta_0_10_20_34}.}
+\label{tab:fixed_reversal}
+\begin{tabular}{ccccccc}
+\hline\hline
+\(\delta\) & \multicolumn{2}{c}{Maximum lift} & \multicolumn{2}{c}{Post-peak} & \multicolumn{2}{c}{Later post-stall} \\
+& \(\alpha\) & \(100f_{\mathrm{rev}}\) (\%) & \(\alpha\) & \(100f_{\mathrm{rev}}\) (\%) & \(\alpha\) & \(100f_{\mathrm{rev}}\) (\%) \\
+\hline
+\(0^\circ\) & \(12^\circ\) & 0.0 & \(14^\circ\) & 56.2 & \(18^\circ\) & 83.6 \\
+\(10^\circ\) & \(8^\circ\) & 0.0 & \(10^\circ\) & 41.1 & \(18^\circ\) & 85.1 \\
+\(20^\circ\) & \(6^\circ\) & 0.9 & \(10^\circ\) & 55.3 & \(14^\circ\) & 77.4 \\
+\(35^\circ\) & \(8^\circ\) & 35.7 & \(10^\circ\) & 62.3 & \(26^\circ\) & 75.2 \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+For \(\delta=0^\circ\) and \(10^\circ\), the selected maximum-lift states have no detected chordwise reversal in the upper fixed region, whereas the post-peak states have reversed fractions of approximately \(56\%\) and \(41\%\).
+At \(\delta=20^\circ\), the fraction rises from approximately \(0.9\%\) to \(55\%\).
+These changes quantify the rapid spread of reversal accompanying the numerical lift drop.
+At the largest numerical deflection, \(\delta=35^\circ\), approximately \(36\%\) of the upper fixed region is already reversed at maximum lift, increasing to \(62\%\) in the post-peak state.
+The maximum-lift condition therefore does not imply an entirely attached fixed surface at every deflection.
+
+A threshold check replaces \(C_{f,c}<0\) with \(C_{f,c}<-10^{-4}\).
+The percentages decrease by less than \(1.6\) percentage points for all states except \((\alpha,\delta)=(26^\circ,35^\circ)\), where the value falls from \(75.2\%\) to \(67.0\%\).
+Thus the extent of weak reversed shear in that deep-post-stall state is threshold-sensitive, while the large increase between the peak and post-peak states persists.
+These are diagnostics of the existing steady RANS fields, not additional experimental validation of the reversal percentages.
+
+Comparisons at each method's maximum lift must account for the different peak incidences.
 The wind tunnel lift curves in Figure~\ref{fig:Coefficients:ExpvsNum:Delta0_10_20_34} show a gradual reduction of the \(C_L\)--\(\alpha\) slope and reach \(C_{L,\max}\) at higher incidences.
 Surface-flow visualizations are available only at selected incidences.
 The measured maximum lift occurs at \(\alpha=20^\circ\), \(18^\circ\), \(16^\circ\), and \(10^\circ\) for \(\delta=0^\circ\), \(10^\circ\), \(20^\circ\), and \(34^\circ\), whereas the closest available visualizations are at \(\alpha=22^\circ\), \(18^\circ\), \(18^\circ\), and \(14^\circ\).
 The visualizations therefore correspond to the maximum-lift incidence for \(\delta=10^\circ\) and to incidences \(2^\circ\)--\(4^\circ\) beyond it for the other deflections.
-Conversely, the RANS solutions remain largely attached to the fixed surface up to the predicted maximum-lift condition, then transition more abruptly to separated flow at the next incidence.
 
 Figure~\ref{fig:FlowTopology:RANSVsExp} is therefore organized to separate the discrepancy in maximum-lift incidence from the discrepancy in separated-flow topology.
 For each deflection, the first column reports the RANS topology at the RANS maximum-lift condition, the second column reports the wind-tunnel visualization closest to the experimental maximum-lift incidence, and the third column reports the RANS topology at the same incidence as the corresponding wind-tunnel visualization.
 The actual incidence values are reported in each panel.
-This layout allows comparison of the RANS maximum-lift state with the experimental topology near maximum lift, while also showing the numerical solution at the same incidence as the visualization.
 
-A further limitation of the topology comparison concerns the treatment of the root region.
-In the wind tunnel, the inboard part of the model is mounted on the floor and is affected by the floor boundary layer.
-In the RANS simulations, the root is instead modeled using an ideal symmetry plane.
-This difference can influence the local separation pattern near the root and the spanwise development of the separated structures.
-Consequently, discrepancies in the inboard location, extent, or migration of the separated region should not be attributed only to turbulence or transition modeling.
-This effect is expected to be most relevant in the stall and post-stall regimes, where the separated-flow topology involves a substantial portion of the span.
-
-For each control-surface deflection, the first column shows the RANS topology at the RANS maximum-lift condition, the second column shows the wind tunnel visualization closest to the experimental maximum-lift incidence, and the third column shows the RANS topology at the same incidence as the wind tunnel visualization.
 The wind tunnel images are mirrored to match the orientation of the RANS views.
-The actual values of \(\alpha\) are reported in each panel.
 
 \begin{figure}[h!]
 \centering
@@ -1400,9 +1392,7 @@ The actual values of \(\alpha\) are reported in each panel.
 
 Figure~\ref{fig:FlowTopology:RANSVsExp} shows that separated flow covers a significant portion of the tailplane at or shortly after the experimental maximum-lift incidence.
 This is consistent with the gradual reduction of the experimental \(C_L\)--\(\alpha\) slope before \(C_{L,\max}\).
-In the RANS results, the maximum-lift state still corresponds to a largely attached fixed surface, especially at lower deflections.
-The numerical stall development is therefore more abrupt, with the separated topology appearing only after the maximum-lift point.
-This difference explains the lower predicted stall incidence and the sharper drop in lift observed in the RANS coefficient curves.
+At the lower deflections, the small fixed-region reversed area at the RANS peak and its subsequent increase (Table~\ref{tab:fixed_reversal}) indicate a more abrupt numerical development. The experimental and numerical maximum-lift states therefore need not have comparable separation patterns.
 
 When the RANS solution is evaluated at the same incidence as the wind tunnel visualization, the predicted flow topology becomes more similar to the experimental one.
 In both datasets, the high-incidence state is characterized by a large separated region and by the formation of a coherent recirculating structure over the suction side.
@@ -1497,16 +1487,15 @@ At \(\delta=34^\circ\), the control surface is separated over most of the incide
 Its contribution then dominates the drag in the range where the fixed surface is attached, so the drag curve becomes nearly linear rather than parabolic and the minimum drag increases.
 
 Control-surface separation also reduces control effectiveness.
-While the deflected surface remains attached, the response to deflection is nearly linear: on the negative-incidence branch, the measured lift and pitching-moment effectiveness decrease by approximately \(9\%\) between the \([0^\circ,10^\circ]\) and \([10^\circ,20^\circ]\) intervals.
-The corresponding effective moment-to-lift arm remains approximately \(0.25\) mean aerodynamic chords in the two selected averaging ranges; this is not a direct load-centroid measurement.
+Over the common regular-response range \(-10^\circ\leq\alpha\leq-4^\circ\), measured mean lift effectiveness decreases by approximately \(6\%\) between the first two deflection intervals, while the magnitude of mean moment effectiveness changes by approximately \(2\%\).
 The strong loss of effectiveness occurs in incidence instead: for \([10^\circ,20^\circ]\), the measured lift effectiveness falls by approximately a factor of two between \(\alpha=-4^\circ\) and \(\alpha=0^\circ\), when the control surface separates.
-RANS reproduces the pitching-moment effectiveness within approximately \(1\%\) on the attached branch, but it overpredicts the lift effectiveness by \(17\)--\(23\%\) and delays the onset of control-surface separation.
-The lifting-line model gives a similar lift effectiveness but overpredicts the pitching-moment effectiveness by \(73\%\) to a factor of two about its own aerodynamic center. The discrepancy becomes larger at a common moment axis, indicating an error in the predicted load distribution beyond the lift-magnitude error.
+RANS reproduces the pitching-moment effectiveness within approximately \(1\%\) over the common negative-incidence range, but it overpredicts the lift effectiveness by \(15\)--\(24\%\) and delays the onset of control-surface separation.
+The lifting-line model gives a similar lift effectiveness but overpredicts the pitching-moment effectiveness by \(79\%\) to approximately a factor of two about its own aerodynamic center. The discrepancy becomes larger at a common moment axis, indicating an error in the predicted load distribution beyond the lift-magnitude error.
 
 The tailplane reaches maximum lift through different paths in the experiment and in the simulations.
 In the wind tunnel, separation develops progressively, the lift-curve slope decreases gradually, and the surface-flow visualizations show extensive separated flow at or shortly after the maximum-lift incidence.
-In RANS, the fixed surface remains largely attached up to the predicted maximum lift, and separation then spreads over the fixed surface within one incidence step; without deflection, it forms a leading-edge separated region over most of the span.
-After stall, both datasets retain significant lift, consistent with the coherent vortical structure that forms over the suction side of the swept surface.
+At the lower deflections, RANS predicts a largely attached fixed surface up to maximum lift, followed by a rapid spread of separation; without deflection, a leading-edge separated region develops over most of the span.
+For numerical deflections up to \(20^\circ\), the upper fixed-region reversed-shear area rises from at most \(0.9\%\) at maximum lift to approximately \(41\)--\(56\%\) at the displayed post-peak state. At \(35^\circ\), approximately \(36\%\) is already reversed at maximum lift. After stall, both datasets retain significant lift, consistent with the suction-side vortical structure.
 At the visualization incidences, RANS reproduces the main separated-flow pattern, but the dominant separated structure is located farther inboard.
 This displacement is consistent with the ideal symmetry plane used at the root in the simulations, in place of the floor boundary layer that is present in the experiment.
 
@@ -1532,21 +1521,6 @@ Such analyses would provide a more complete basis for improving reduced-order co
 
 
 
-
-\section*{Appendix}
-\appendix
-
-\section{Additional aerodynamic-coefficient comparisons}
-\label{app:additional_coefficients}
-
-Figure~\ref{fig:appendix_coefficients_delta30} reports the additional coefficient curves used to compute the finite-deflection control-effectiveness intervals discussed in Sec.~\ref{sec:effectiveness_results}.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=1\linewidth]{Coefficients_complete.pdf}
-    \caption{Wind tunnel, RANS, and DUST lifting-line coefficients for the complete control-deflection set.}
-    \label{fig:appendix_coefficients_delta30}
-\end{figure}
 
 \clearpage
 
