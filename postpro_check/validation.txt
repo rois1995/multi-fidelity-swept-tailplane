@@ -1,37 +1,36 @@
-Comments 2 validation — 26 October 2026
-Baseline commit: feaeee1.
+Whole-paper writing audit validation — 28 October 2026
+Baseline: 871f900. Validation of the whole-paper writing revision.
 
-PASS: python3 postpro_check/generate_figures.py.
-Four plots regenerated. Data identity, nonnegative uncertainty, baseline values,
-three-method coverage and new common-range WT lift means checked by assertions.
-All selected samples are within 3% of each interval mean. Adjacent -12/-2 deg
-samples fall outside that regular range.
-PASS: python3 postpro_check/table3.py postpro_check.
-Common-sample means, uncertainty summaries and common-axis moments reproduced.
+PASS: reversed-area equation/table/discussion and dependent references removed.
+PASS: all original field-incidence labels and all figure source file references
+are preserved (including multiplicity). No incidence selection was replaced.
+PASS: all original coefficient CSV hashes match figure_sources.json.
+PASS: numerical bodies of Tables 1, 2 and 3 are unchanged.
+PASS: existing audit.py and table3.py reproduce the lift extrema, aerodynamic
+centers, effectiveness values, uncertainty summaries and common-axis moments.
+Their outputs are saved in writing_audit_coefficients.txt and writing_audit_table3.txt.
 
-PASS: python3 postpro_check/reverse_flow.py.
-Twelve stored RANS fields; three shear thresholds; 36 derived records.
-Exact linear-triangle clipping fixtures, finite fields, positive areas, tangent
-projection, bounded fractions and threshold monotonicity checked.
-The geometry coordinates and clipping were also compared with the companion
-pre-stall implementation on seeded numerical fixtures and agreed.
-Results: fixed_surface_reversal.csv; source hashes: fixed_surface_sources.json.
-No source VTU files or aerodynamic CSV values were changed.
-
-PASS: source coefficient CSV hashes agree with the feaeee1 source ledger.
-PASS: 42 unique LaTeX labels and 32 references resolve.
-PASS: latexmk -pdf -interaction=nonstopmode -halt-on-error
--outdir=/tmp/tailplane-comments2-build main.tex.
-Final PDF: 34 pages; no undefined references/citations or extracted ?? marks.
-Local copy: main_comments2_revised.pdf.
+PASS: 40 unique labels and 33 cross-references resolve;
+25 cited bibliography keys exist.
+PASS: BibTeX, LaTeX draft passes and final pdflatex compilation.
+Final PDF: main_writing_audit.pdf; 29 pages; no undefined references/citations,
+multiply defined labels or extracted double-question-mark references.
 PASS: source whitespace check (raw generated *.log files excluded).
-Visual checks: new baseline/selected/effectiveness plots; compiled Table 3 and
-the new fixed-region reversal table. The review diff remains a local artifact.
 
-Limits: these are diagnostics of existing steady RANS snapshots. Reversed
-chordwise shear is not the full 3D separated-flow footprint. The upper region is
-selected geometrically, not by asserting native SU2 marker identity. The
-26-deg-incidence, 35-deg-deflection state is sensitive to the small-shear threshold
-(75.2% at zero, 67.0% below -1e-4); this is reported in the manuscript.
-No new CFD or experimental measurements were performed. Existing field-figure
-layout/float warnings remain and do not prevent compilation.
+Visual checks: schematic (including Control label, b_s and 30-degree sweep arc),
+effectiveness table, regime summary and conclusions; numerical-only 35-degree
+labels checked in the topology source. The source bitmap files are unchanged.
+The regime table now fits the text width using tabularx.
+Nw=100 for all production solutions was explicitly confirmed by the author.
+The illustrative geometry coordinates give a 30-degree quarter-chord sweep.
+
+The audit report is retained locally as paper_writing_audit.txt. Source changes concern writing,
+notation, labels and verified bibliography metadata; no CFD, experimental record,
+coefficient CSV or original scientific raster figure was altered.
+Earlier reversal scripts and numerical evidence remain as provenance and are
+not an analysis used by the revised manuscript.
+
+Remaining notices: six conference references omit page ranges; DOI/paper
+identifiers remain. No ranges were fabricated. Existing field-image overfull-box
+and float warnings remain. This audit does not independently reproduce the
+experimental reductions or establish the causal effect of the tunnel floor.

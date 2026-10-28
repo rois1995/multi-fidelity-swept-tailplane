@@ -22,15 +22,15 @@ every label/.append style = {font=\footnotesize}]
         \draw[very thick,red] (AC_R) -- (AC_T);
         
         \coordinate (Text_Sweep) at ( 4.6, 4.1, 0 );
-        \node [rotate=60,anchor=south] at (Text_Sweep) {\textcolor{red}{25\% of chord line}}; 
+        \node [rotate=60,anchor=south] at (Text_Sweep) {\textcolor{red}{Quarter-chord line}};
         
         \coordinate (AC_RT) at ( 2.28575, 16, 0 );
         \draw[very thick,black,dashed] (AC_R) -- (AC_RT);
 
-        \draw [blue,thick,domain=50:90] plot ({2.28575+7*cos(\x)}, {2.28575+7*sin(\x)});
+        \draw [blue,thick,domain=60:90] plot ({2.28575+7*cos(\x)}, {7*sin(\x)});
         
-        \coordinate (Text_Sweep_Sym) at ( 4.7, 9, 0 );
-        \node [rotate=-20,anchor=south] at (Text_Sweep_Sym) {\textcolor{blue}{Sweep Angle $\lambda$}}; 
+        \coordinate (Text_Sweep_Sym) at ( 4.7, 8, 0 );
+        \node [rotate=-20,anchor=south] at (Text_Sweep_Sym) {\textcolor{blue}{Sweep angle $\lambda$}};
 
         \coordinate (H_R) at ( 6.4, 0, 0 );
         \coordinate (H_T) at ( 13.17, 16, 0 );
@@ -40,7 +40,7 @@ every label/.append style = {font=\footnotesize}]
         \node [rotate=67,anchor=south] at (Text_Hinge) {\textcolor{brown}{Hinge line at 70\% chord}}; 
         
         \coordinate (TE_TR) at ( 14.266, 0, 0 );
-        \draw[measure]  ($(TE_T)!10mm!90:(TE_TR)$) to [sloped,"Model Semi-Span $b$"] ($(TE_TR)!10mm!-90:(TE_T)$);
+        \draw[measure]  ($(TE_T)!10mm!90:(TE_TR)$) to [sloped,"Model semispan $b_s$"] ($(TE_TR)!10mm!-90:(TE_T)$);
         
         \draw[measure]  ($(LE_T)!5mm!90:(TE_T)$) to [sloped,"Tip Chord"] ($(TE_T)!5mm!-90:(LE_T)$);
 
@@ -58,7 +58,10 @@ every label/.append style = {font=\footnotesize}]
 \end{minipage}
 \quad
 \begin{minipage}[ht]{0.45\textwidth}
-\begin{subfloat}[]{\includegraphics[width=1\textwidth]{FlapDeflection.png}\label{figure:PlanformDefinition:Rudder}}
+\begin{subfloat}[]{\MaskedImage[width=1\textwidth]{FlapDeflection.png}{%
+    \maskrecttl{0.78}{0.405}{0.18}{0.17}
+    \node[font=\footnotesize,text=orange] at (0.87,0.50) {Control};
+}\label{figure:PlanformDefinition:Rudder}}
 \end{subfloat}
 \begin{subfloat}[]{\includegraphics[width=1\textwidth]{Aircraft_dihedral_angle.png}\label{figure:PlanformDefinition:Dihedral}}
 \end{subfloat}

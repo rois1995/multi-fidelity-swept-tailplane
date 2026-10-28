@@ -1,0 +1,14 @@
+Method interval  CLd   CMd(own AC)  CMd(WT AC)  -CMd/CLd(own)
+WT    [0,10]  2.071  -0.507   -0.507   0.245
+RANS  [0,10]  2.374  -0.507   -0.505   0.214
+LL    [0,10]  2.501  -0.909   -1.164   0.363
+   WT err CLd: script-style sqrt(sum e^2)/N=0.031  mean pointwise e=0.060
+   WT err CMd: script-style=0.015  mean pointwise=0.030
+WT    [10,20]  1.955  -0.498   -0.498   0.255
+RANS  [10,20]  2.428  -0.502   -0.500   0.207
+LL    [10,20]  2.450  -0.985   -1.232   0.402
+   WT err CLd: script-style sqrt(sum e^2)/N=0.024  mean pointwise e=0.046
+   WT err CMd: script-style=0.015  mean pointwise=0.030
+check RANS: CMy - CMy_AC = -0.603049715538588  k*CFz= -0.6030359017554198
+RANS [30,35] CLd at a=-10..0 using /4deg: [-0.96  0.75  0.86  0.86  0.79  0.73]  using /5deg: [-0.77  0.6   0.68  0.69  0.63  0.58]
+LL [30,35] CLd at a=-10..0 using /4deg: [-3.89 -3.54 -1.46 -0.58 -0.05 -0.48]  using /5deg: [-3.11 -2.83 -1.17 -0.47 -0.04 -0.39]

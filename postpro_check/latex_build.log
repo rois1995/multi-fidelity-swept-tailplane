@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.3.26)  26 OCT 2026 15:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.3.26)  28 OCT 2026 12:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1134,7 +1134,7 @@ Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
 \multirow@dima=\skip91
 \bigstrutjot=\dimen365
 )
-(/tmp/tailplane-comments2-build/main.aux)
+(/tmp/tailplane-writing-audit/build/main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 99.
@@ -1259,8 +1259,8 @@ LaTeX Info: Redefining \ref on input line 99.
 LaTeX Info: Redefining \pageref on input line 99.
 LaTeX Info: Redefining \nameref on input line 99.
 
-(/tmp/tailplane-comments2-build/main.out)
-(/tmp/tailplane-comments2-build/main.out)
+(/tmp/tailplane-writing-audit/build/main.out)
+(/tmp/tailplane-writing-audit/build/main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
@@ -1412,145 +1412,145 @@ Overfull \hbox (5.36372pt too wide) in paragraph at lines 56--58
 [][] 
  []
 
-<FlapDeflection.png, id=127, 522.95375pt x 111.41624pt>
+<FlapDeflection.png, id=128, 522.95375pt x 111.41624pt>
 File: FlapDeflection.png Graphic file (type png)
 <use FlapDeflection.png>
-Package pdftex.def Info: FlapDeflection.png  used on input line 61.
+Package pdftex.def Info: FlapDeflection.png  used on input line 64.
 (pdftex.def)             Requested size: 211.38832pt x 45.03662pt.
-<Aircraft_dihedral_angle.png, id=129, 1284.8pt x 695.59875pt>
+<Aircraft_dihedral_angle.png, id=130, 1284.8pt x 695.59875pt>
 File: Aircraft_dihedral_angle.png Graphic file (type png)
 <use Aircraft_dihedral_angle.png>
-Package pdftex.def Info: Aircraft_dihedral_angle.png  used on input line 63.
+Package pdftex.def Info: Aircraft_dihedral_angle.png  used on input line 66.
 (pdftex.def)             Requested size: 211.38832pt x 114.4398pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--68
+[][]
+ []
+
 ) [4] [5 <./FlapDeflection.png> <./Aircraft_dihedral_angle.png>]
-<WindTunnelInstallation.jpg, id=149, 1302.8675pt x 976.64874pt>
+<WindTunnelInstallation.jpg, id=150, 1302.8675pt x 976.64874pt>
 File: WindTunnelInstallation.jpg Graphic file (type jpg)
 <use WindTunnelInstallation.jpg>
-Package pdftex.def Info: WindTunnelInstallation.jpg  used on input line 396.
+Package pdftex.def Info: WindTunnelInstallation.jpg  used on input line 387.
 (pdftex.def)             Requested size: 1302.86432pt x 976.64636pt.
- [6] [7 <./WindTunnelInstallation.jpg>] [8] [9] [10]
-<Coefficients_baseline.pdf, id=204, 505.89pt x 187.902pt>
+ [6] [7 <./WindTunnelInstallation.jpg>] [8] [9]
+<Coefficients_baseline.pdf, id=201, 505.89pt x 187.902pt>
 File: Coefficients_baseline.pdf Graphic file (type pdf)
 <use Coefficients_baseline.pdf>
-Package pdftex.def Info: Coefficients_baseline.pdf  used on input line 558.
+Package pdftex.def Info: Coefficients_baseline.pdf  used on input line 539.
 (pdftex.def)             Requested size: 469.75502pt x 174.48326pt.
- [11 <./Coefficients_baseline.pdf>]
-[12]
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 623.
-
+ [10 <./Coefficients_baseline.pdf>]
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 10.0pt on input line 654.
+(Font)              scaled to size 10.0pt on input line 622.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 7.3pt on input line 654.
+(Font)              scaled to size 7.3pt on input line 622.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 5.5pt on input line 654.
-<RefPlan_AoA_12_Delta_0_UpperSurface_CL.png, id=247, 3292.3pt x 3167.835pt>
+(Font)              scaled to size 5.5pt on input line 622.
+<RefPlan_AoA_12_Delta_0_UpperSurface_CL.png, id=238, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_12_Delta_0_UpperSurface_CL.png Graphic file (type png)
 <use RefPlan_AoA_12_Delta_0_UpperSurface_CL.png>
 Package pdftex.def Info: RefPlan_AoA_12_Delta_0_UpperSurface_CL.png  used on in
-put line 668.
+put line 636.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 668--669
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 636--637
  []|[]| 
  []
 
-<RefPlan_AoA_14_Delta_0_UpperSurface_CL.png, id=248, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_14_Delta_0_UpperSurface_CL.png, id=239, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_14_Delta_0_UpperSurface_CL.png Graphic file (type png)
 <use RefPlan_AoA_14_Delta_0_UpperSurface_CL.png>
 Package pdftex.def Info: RefPlan_AoA_14_Delta_0_UpperSurface_CL.png  used on in
-put line 673.
+put line 641.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 673--674
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 641--642
  []|[] 
  []
 
-<RefPlan_AoA_20_Delta_0_UpperSurface_CL.png, id=249, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_20_Delta_0_UpperSurface_CL.png, id=240, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_20_Delta_0_UpperSurface_CL.png Graphic file (type png)
 <use RefPlan_AoA_20_Delta_0_UpperSurface_CL.png>
 Package pdftex.def Info: RefPlan_AoA_20_Delta_0_UpperSurface_CL.png  used on in
-put line 679.
+put line 647.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 679--680
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 647--648
  []|[] 
  []
 
 File: RefPlan_AoA_12_Delta_0_UpperSurface_CL.png Graphic file (type png)
 <use RefPlan_AoA_12_Delta_0_UpperSurface_CL.png>
 Package pdftex.def Info: RefPlan_AoA_12_Delta_0_UpperSurface_CL.png  used on in
-put line 683.
+put line 651.
 (pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
 
-Overfull \vbox (91.6214pt too high) detected at line 683
+Overfull \vbox (91.6214pt too high) detected at line 651
  []
 
 
-Overfull \hbox (5.68303pt too wide) in paragraph at lines 683--685
+Overfull \hbox (5.68303pt too wide) in paragraph at lines 651--653
  []|[]| 
  []
 
-<RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png, id=251, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png, id=242, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png Graphic file (type png)
 <use RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png>
 Package pdftex.def Info: RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png  used on i
-nput line 691.
+nput line 659.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 691--692
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 659--660
  []|[] 
  []
 
-<RefPlan_AoA_14_Delta_0_UpperSurface_CMy.png, id=252, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_14_Delta_0_UpperSurface_CMy.png, id=243, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_14_Delta_0_UpperSurface_CMy.png Graphic file (type png)
 <use RefPlan_AoA_14_Delta_0_UpperSurface_CMy.png>
 Package pdftex.def Info: RefPlan_AoA_14_Delta_0_UpperSurface_CMy.png  used on i
-nput line 697.
+nput line 665.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 697--698
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 665--666
  []|[] 
  []
 
-<RefPlan_AoA_20_Delta_0_UpperSurface_CMy.png, id=253, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_20_Delta_0_UpperSurface_CMy.png, id=244, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_20_Delta_0_UpperSurface_CMy.png Graphic file (type png)
 <use RefPlan_AoA_20_Delta_0_UpperSurface_CMy.png>
 Package pdftex.def Info: RefPlan_AoA_20_Delta_0_UpperSurface_CMy.png  used on i
-nput line 703.
+nput line 671.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 703--704
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 671--672
  []|[] 
  []
 
 File: RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png Graphic file (type png)
 <use RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png>
 Package pdftex.def Info: RefPlan_AoA_12_Delta_0_UpperSurface_CMy.png  used on i
-nput line 707.
+nput line 675.
 (pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
 
-Overfull \vbox (91.6214pt too high) detected at line 707
+Overfull \vbox (91.6214pt too high) detected at line 675
  []
 
 
-Overfull \hbox (5.68303pt too wide) in paragraph at lines 707--708
+Overfull \hbox (5.68303pt too wide) in paragraph at lines 675--676
  []|[] 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[13]
-<Coefficients_selected.pdf, id=261, 505.89pt x 397.485pt>
+[11]
+<Coefficients_selected.pdf, id=254, 505.89pt x 397.485pt>
 File: Coefficients_selected.pdf Graphic file (type pdf)
 <use Coefficients_selected.pdf>
-Package pdftex.def Info: Coefficients_selected.pdf  used on input line 745.
+Package pdftex.def Info: Coefficients_selected.pdf  used on input line 703.
 (pdftex.def)             Requested size: 469.75502pt x 369.09923pt.
-
-Overfull \hbox (15.7763pt too wide) in paragraph at lines 750--753
+ [12 <./RefPlan_AoA_12_Delta_0_UpperSurface_CL.png> <./RefPlan_AoA_12_Delta_0_U
+pperSurface_CMy.png> <./RefPlan_AoA_14_Delta_0_UpperSurface_CL.png> <./RefPlan_
+AoA_20_Delta_0_UpperSurface_CL.png> <./RefPlan_AoA_14_Delta_0_UpperSurface_CMy.
+png> <./RefPlan_AoA_20_Delta_0_UpperSurface_CMy.png>]
+Overfull \hbox (15.7763pt too wide) in paragraph at lines 708--710
 []\T1/ntxtlf/m/n/10 (-20) Figure []5[] com-pares the wind tun-nel, RANS, and DU
 ST lifting-line aero-dy-namic co-ef-fi-cients for $\OML/ntxmi/m/it/10 ^^N \LMS/
 ntxsy/m/n/10 2 f\OT1/ntxtlf/m/n/10 (-20) 0[]\OML/ntxmi/m/it/10 ; \OT1/ntxtlf/m/
@@ -1559,457 +1559,452 @@ t/10 ; \OT1/ntxtlf/m/n/10 (-20) 30[]\OML/ntxmi/m/it/10 ; \OT1/ntxtlf/m/n/10 (-2
 0) 34[]\LMS/ntxsy/m/n/10 g$\T1/ntxtlf/m/n/10 (-20) .
  []
 
-[14 <./RefPlan_AoA_12_Delta_0_UpperSurface_CL.png> <./RefPlan_AoA_12_Delta_0_Up
-perSurface_CMy.png> <./RefPlan_AoA_14_Delta_0_UpperSurface_CL.png> <./RefPlan_A
-oA_20_Delta_0_UpperSurface_CL.png> <./RefPlan_AoA_14_Delta_0_UpperSurface_CMy.p
-ng> <./RefPlan_AoA_20_Delta_0_UpperSurface_CMy.png>] [15 <./Coefficients_select
-ed.pdf>]
-<Load_decomposition.pdf, id=350, 505.89pt x 317.98799pt>
+[13 <./Coefficients_selected.pdf>]
+<Load_decomposition.pdf, id=345, 505.89pt x 317.98799pt>
 File: Load_decomposition.pdf Graphic file (type pdf)
 <use Load_decomposition.pdf>
-Package pdftex.def Info: Load_decomposition.pdf  used on input line 782.
+Package pdftex.def Info: Load_decomposition.pdf  used on input line 736.
 (pdftex.def)             Requested size: 422.77664pt x 265.74948pt.
- [16] [17 <./Load_decomposition.pdf>]
-Overfull \hbox (6.03966pt too wide) in paragraph at lines 823--824
+ [14]
+Overfull \hbox (6.03966pt too wide) in paragraph at lines 777--778
  [] 
  []
 
-<RefPlan_AoA_-20_Delta_20_UpperSurface_CD.png, id=384, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_-20_Delta_20_UpperSurface_CD.png, id=353, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_-20_Delta_20_UpperSurface_CD.png Graphic file (type png)
 <use RefPlan_AoA_-20_Delta_20_UpperSurface_CD.png>
 Package pdftex.def Info: RefPlan_AoA_-20_Delta_20_UpperSurface_CD.png  used on 
-input line 828.
+input line 782.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 828--829
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 782--783
  []|[]| 
  []
 
-<RefPlan_AoA_-16_Delta_20_UpperSurface_CD.png, id=385, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_-16_Delta_20_UpperSurface_CD.png, id=354, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_-16_Delta_20_UpperSurface_CD.png Graphic file (type png)
 <use RefPlan_AoA_-16_Delta_20_UpperSurface_CD.png>
 Package pdftex.def Info: RefPlan_AoA_-16_Delta_20_UpperSurface_CD.png  used on 
-input line 833.
+input line 787.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 833--834
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 787--788
  []|[] 
  []
 
-<RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png, id=386, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png, id=355, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png Graphic file (type png)
 <use RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png>
 Package pdftex.def Info: RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png  used on 
-input line 839.
+input line 793.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 839--840
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 793--794
  []|[] 
  []
 
 File: RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png Graphic file (type png)
 <use RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png>
 Package pdftex.def Info: RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png  used on 
-input line 843.
+input line 797.
 (pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
 
-Overfull \vbox (91.6214pt too high) detected at line 843
+Overfull \vbox (91.6214pt too high) detected at line 797
  []
 
 
-Overfull \hbox (5.68303pt too wide) in paragraph at lines 843--845
+Overfull \hbox (5.68303pt too wide) in paragraph at lines 797--799
  []|[]| 
  []
 
 
-Overfull \hbox (6.03966pt too wide) in paragraph at lines 846--847
+Overfull \hbox (6.03966pt too wide) in paragraph at lines 800--801
  [] 
  []
 
-<RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png, id=388, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png, id=357, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png Graphic file (type png)
 <use RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png>
 Package pdftex.def Info: RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png  used on 
-input line 851.
+input line 805.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 851--852
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 805--806
  []|[] 
  []
 
-<RefPlan_AoA_-16_Delta_35_UpperSurface_CD.png, id=389, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_-16_Delta_35_UpperSurface_CD.png, id=358, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_-16_Delta_35_UpperSurface_CD.png Graphic file (type png)
 <use RefPlan_AoA_-16_Delta_35_UpperSurface_CD.png>
 Package pdftex.def Info: RefPlan_AoA_-16_Delta_35_UpperSurface_CD.png  used on 
-input line 857.
+input line 811.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 857--858
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 811--812
  []|[] 
  []
 
-<RefPlan_AoA_-12_Delta_35_UpperSurface_CD.png, id=390, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_-12_Delta_35_UpperSurface_CD.png, id=359, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_-12_Delta_35_UpperSurface_CD.png Graphic file (type png)
 <use RefPlan_AoA_-12_Delta_35_UpperSurface_CD.png>
 Package pdftex.def Info: RefPlan_AoA_-12_Delta_35_UpperSurface_CD.png  used on 
-input line 863.
+input line 817.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 863--864
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 817--818
  []|[] 
  []
 
 File: RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png Graphic file (type png)
 <use RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png>
 Package pdftex.def Info: RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png  used on 
-input line 867.
+input line 821.
 (pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
 
-Overfull \vbox (91.6214pt too high) detected at line 867
+Overfull \vbox (91.6214pt too high) detected at line 821
  []
 
 
-Overfull \hbox (5.68303pt too wide) in paragraph at lines 867--868
+Overfull \hbox (5.68303pt too wide) in paragraph at lines 821--822
  []|[] 
  []
 
-[18 <./RefPlan_AoA_-12_Delta_20_UpperSurface_CD.png> <./RefPlan_AoA_-20_Delta_3
-5_UpperSurface_CD.png> <./RefPlan_AoA_-20_Delta_20_UpperSurface_CD.png> <./RefP
-lan_AoA_-16_Delta_20_UpperSurface_CD.png> <./RefPlan_AoA_-16_Delta_35_UpperSurf
-ace_CD.png> <./RefPlan_AoA_-12_Delta_35_UpperSurface_CD.png>] [19]
-<ControlEffectiveness_revised.pdf, id=415, 505.89pt x 281.85298pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[15 <./Load_decomposition.pdf>] [16 <./RefPlan_AoA_-12_Delta_20_UpperSurface_CD
+.png> <./RefPlan_AoA_-20_Delta_35_UpperSurface_CD.png> <./RefPlan_AoA_-20_Delta
+_20_UpperSurface_CD.png> <./RefPlan_AoA_-16_Delta_20_UpperSurface_CD.png> <./Re
+fPlan_AoA_-16_Delta_35_UpperSurface_CD.png> <./RefPlan_AoA_-12_Delta_35_UpperSu
+rface_CD.png>]
+<ControlEffectiveness_revised.pdf, id=405, 505.89pt x 281.85298pt>
 File: ControlEffectiveness_revised.pdf Graphic file (type pdf)
 <use ControlEffectiveness_revised.pdf>
-Package pdftex.def Info: ControlEffectiveness_revised.pdf  used on input line 9
-47.
+Package pdftex.def Info: ControlEffectiveness_revised.pdf  used on input line 8
+89.
 (pdftex.def)             Requested size: 469.75502pt x 261.7249pt.
- [20 <./ControlEffectiveness_revised.pdf>] [21] [22] [23]
-<RefPlan_AoA_12_Delta_0_UpperSurface_CP.png, id=496, 3292.3pt x 3167.835pt>
+ [17] [18 <./ControlEffectiveness_revised.pdf>] [19] [20]
+<RefPlan_AoA_12_Delta_0_UpperSurface_CP.png, id=487, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_12_Delta_0_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_12_Delta_0_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_12_Delta_0_UpperSurface_CP.png  used on in
-put line 1091.
+put line 1019.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1091--1092
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1019--1020
  []|[]| 
  []
 
-<RefPlan_AoA_14_Delta_0_UpperSurface_CP.png, id=497, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_14_Delta_0_UpperSurface_CP.png, id=488, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_14_Delta_0_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_14_Delta_0_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_14_Delta_0_UpperSurface_CP.png  used on in
-put line 1097.
+put line 1025.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1097--1098
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1025--1026
  []|[] 
  []
 
-<RefPlan_AoA_18_Delta_0_UpperSurface_CP.png, id=498, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_18_Delta_0_UpperSurface_CP.png, id=489, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_18_Delta_0_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png  used on in
-put line 1104.
+put line 1032.
+(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
+
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1032--1033
+ []|[] 
+ []
+
+File: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_18_Delta_0_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png  used on in
+put line 1036.
+(pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
+
+Overfull \vbox (91.6214pt too high) detected at line 1036
+ []
+
+
+Overfull \hbox (5.68303pt too wide) in paragraph at lines 1036--1038
+ []|[]| 
+ []
+
+<RefPlan_AoA_8_Delta_10_UpperSurface_CP.png, id=491, 3292.3pt x 3167.835pt>
+File: RefPlan_AoA_8_Delta_10_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_8_Delta_10_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_8_Delta_10_UpperSurface_CP.png  used on in
+put line 1046.
+(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
+
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1046--1047
+ []|[]| 
+ []
+
+<RefPlan_AoA_10_Delta_10_UpperSurface_CP.png, id=492, 3292.3pt x 3167.835pt>
+File: RefPlan_AoA_10_Delta_10_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_10_Delta_10_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_10_Delta_10_UpperSurface_CP.png  used on i
+nput line 1052.
+(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
+
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1052--1053
+ []|[] 
+ []
+
+<RefPlan_AoA_18_Delta_10_UpperSurface_CP.png, id=493, 3292.3pt x 3167.835pt>
+File: RefPlan_AoA_18_Delta_10_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_18_Delta_10_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_18_Delta_10_UpperSurface_CP.png  used on i
+nput line 1059.
+(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
+
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1059--1060
+ []|[] 
+ []
+
+File: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_18_Delta_0_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png  used on in
+put line 1063.
+(pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
+
+Overfull \vbox (91.6214pt too high) detected at line 1063
+ []
+
+
+Overfull \hbox (5.68303pt too wide) in paragraph at lines 1063--1065
+ []|[]| 
+ []
+
+<RefPlan_AoA_6_Delta_20_UpperSurface_CP.png, id=495, 3292.3pt x 3167.835pt>
+File: RefPlan_AoA_6_Delta_20_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_6_Delta_20_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_6_Delta_20_UpperSurface_CP.png  used on in
+put line 1072.
+(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
+
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1072--1073
+ []|[]| 
+ []
+
+<RefPlan_AoA_10_Delta_20_UpperSurface_CP.png, id=496, 3292.3pt x 3167.835pt>
+File: RefPlan_AoA_10_Delta_20_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_10_Delta_20_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_10_Delta_20_UpperSurface_CP.png  used on i
+nput line 1078.
+(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
+
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1078--1079
+ []|[] 
+ []
+
+<RefPlan_AoA_14_Delta_20_UpperSurface_CP.png, id=497, 3292.3pt x 3167.835pt>
+File: RefPlan_AoA_14_Delta_20_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_14_Delta_20_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_14_Delta_20_UpperSurface_CP.png  used on i
+nput line 1085.
+(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
+
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1085--1086
+ []|[] 
+ []
+
+File: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_18_Delta_0_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png  used on in
+put line 1089.
+(pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
+
+Overfull \vbox (91.6214pt too high) detected at line 1089
+ []
+
+
+Overfull \hbox (5.68303pt too wide) in paragraph at lines 1089--1091
+ []|[]| 
+ []
+
+<RefPlan_AoA_8_Delta_35_UpperSurface_CP.png, id=499, 3292.3pt x 3167.835pt>
+File: RefPlan_AoA_8_Delta_35_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_8_Delta_35_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_8_Delta_35_UpperSurface_CP.png  used on in
+put line 1098.
+(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
+
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1098--1099
+ []|[]| 
+ []
+
+<RefPlan_AoA_10_Delta_35_UpperSurface_CP.png, id=500, 3292.3pt x 3167.835pt>
+File: RefPlan_AoA_10_Delta_35_UpperSurface_CP.png Graphic file (type png)
+<use RefPlan_AoA_10_Delta_35_UpperSurface_CP.png>
+Package pdftex.def Info: RefPlan_AoA_10_Delta_35_UpperSurface_CP.png  used on i
+nput line 1104.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
 Overfull \hbox (17.9198pt too wide) in paragraph at lines 1104--1105
  []|[] 
  []
 
-File: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_18_Delta_0_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png  used on in
-put line 1108.
-(pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
-
-Overfull \vbox (91.6214pt too high) detected at line 1108
- []
-
-
-Overfull \hbox (5.68303pt too wide) in paragraph at lines 1108--1110
- []|[]| 
- []
-
-<RefPlan_AoA_8_Delta_10_UpperSurface_CP.png, id=500, 3292.3pt x 3167.835pt>
-File: RefPlan_AoA_8_Delta_10_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_8_Delta_10_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_8_Delta_10_UpperSurface_CP.png  used on in
-put line 1118.
-(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
-
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1118--1119
- []|[]| 
- []
-
-<RefPlan_AoA_10_Delta_10_UpperSurface_CP.png, id=501, 3292.3pt x 3167.835pt>
-File: RefPlan_AoA_10_Delta_10_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_10_Delta_10_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_10_Delta_10_UpperSurface_CP.png  used on i
-nput line 1124.
-(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
-
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1124--1125
- []|[] 
- []
-
-<RefPlan_AoA_18_Delta_10_UpperSurface_CP.png, id=502, 3292.3pt x 3167.835pt>
-File: RefPlan_AoA_18_Delta_10_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_18_Delta_10_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_18_Delta_10_UpperSurface_CP.png  used on i
-nput line 1131.
-(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
-
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1131--1132
- []|[] 
- []
-
-File: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_18_Delta_0_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png  used on in
-put line 1135.
-(pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
-
-Overfull \vbox (91.6214pt too high) detected at line 1135
- []
-
-
-Overfull \hbox (5.68303pt too wide) in paragraph at lines 1135--1137
- []|[]| 
- []
-
-<RefPlan_AoA_6_Delta_20_UpperSurface_CP.png, id=504, 3292.3pt x 3167.835pt>
-File: RefPlan_AoA_6_Delta_20_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_6_Delta_20_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_6_Delta_20_UpperSurface_CP.png  used on in
-put line 1144.
-(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
-
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1144--1145
- []|[]| 
- []
-
-<RefPlan_AoA_10_Delta_20_UpperSurface_CP.png, id=505, 3292.3pt x 3167.835pt>
-File: RefPlan_AoA_10_Delta_20_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_10_Delta_20_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_10_Delta_20_UpperSurface_CP.png  used on i
-nput line 1150.
-(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
-
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1150--1151
- []|[] 
- []
-
-<RefPlan_AoA_14_Delta_20_UpperSurface_CP.png, id=506, 3292.3pt x 3167.835pt>
-File: RefPlan_AoA_14_Delta_20_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_14_Delta_20_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_14_Delta_20_UpperSurface_CP.png  used on i
-nput line 1157.
-(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
-
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1157--1158
- []|[] 
- []
-
-File: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_18_Delta_0_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png  used on in
-put line 1161.
-(pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
-
-Overfull \vbox (91.6214pt too high) detected at line 1161
- []
-
-
-Overfull \hbox (5.68303pt too wide) in paragraph at lines 1161--1163
- []|[]| 
- []
-
-<RefPlan_AoA_8_Delta_35_UpperSurface_CP.png, id=508, 3292.3pt x 3167.835pt>
-File: RefPlan_AoA_8_Delta_35_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_8_Delta_35_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_8_Delta_35_UpperSurface_CP.png  used on in
-put line 1170.
-(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
-
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1170--1171
- []|[]| 
- []
-
-<RefPlan_AoA_10_Delta_35_UpperSurface_CP.png, id=509, 3292.3pt x 3167.835pt>
-File: RefPlan_AoA_10_Delta_35_UpperSurface_CP.png Graphic file (type png)
-<use RefPlan_AoA_10_Delta_35_UpperSurface_CP.png>
-Package pdftex.def Info: RefPlan_AoA_10_Delta_35_UpperSurface_CP.png  used on i
-nput line 1176.
-(pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
-
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1176--1177
- []|[] 
- []
-
-<RefPlan_AoA_26_Delta_35_UpperSurface_CP.png, id=510, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_26_Delta_35_UpperSurface_CP.png, id=501, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_26_Delta_35_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_26_Delta_35_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_26_Delta_35_UpperSurface_CP.png  used on i
-nput line 1183.
+nput line 1111.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1183--1184
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1111--1112
  []|[] 
  []
 
 File: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_18_Delta_0_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_18_Delta_0_UpperSurface_CP.png  used on in
-put line 1187.
+put line 1115.
 (pdftex.def)             Requested size: 34.13577pt x 102.42131pt.
 
-Overfull \vbox (91.6214pt too high) detected at line 1187
+Overfull \vbox (91.6214pt too high) detected at line 1115
  []
 
 
-Overfull \hbox (5.68303pt too wide) in paragraph at lines 1187--1189
+Overfull \hbox (5.68303pt too wide) in paragraph at lines 1115--1117
  []|[]| 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[24]
+[21]
 
-LaTeX Warning: Text page 25 contains only floats.
+LaTeX Warning: Text page 22 contains only floats.
 
 
 Overfull \vbox (4.11491pt too high) has occurred while \output is active []
 
 
-[25 <./RefPlan_AoA_18_Delta_0_UpperSurface_CP.png> <./RefPlan_AoA_12_Delta_0_Up
+[22 <./RefPlan_AoA_18_Delta_0_UpperSurface_CP.png> <./RefPlan_AoA_12_Delta_0_Up
 perSurface_CP.png> <./RefPlan_AoA_14_Delta_0_UpperSurface_CP.png> <./RefPlan_Ao
 A_8_Delta_10_UpperSurface_CP.png> <./RefPlan_AoA_10_Delta_10_UpperSurface_CP.pn
 g> <./RefPlan_AoA_18_Delta_10_UpperSurface_CP.png> <./RefPlan_AoA_6_Delta_20_Up
 perSurface_CP.png> <./RefPlan_AoA_10_Delta_20_UpperSurface_CP.png> <./RefPlan_A
 oA_14_Delta_20_UpperSurface_CP.png> <./RefPlan_AoA_8_Delta_35_UpperSurface_CP.p
 ng> <./RefPlan_AoA_10_Delta_35_UpperSurface_CP.png> <./RefPlan_AoA_26_Delta_35_
-UpperSurface_CP.png>] [26]
+UpperSurface_CP.png>]
 File: RefPlan_AoA_12_Delta_0_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_12_Delta_0_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_12_Delta_0_UpperSurface_CP.png  used on in
-put line 1296.
+put line 1178.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1296--1297
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1178--1179
  []|[]| 
  []
 
-<AoA_22_delta_0.png, id=549, 3773.09625pt x 4489.77374pt>
+<AoA_22_delta_0.png, id=530, 3773.09625pt x 4489.77374pt>
 File: AoA_22_delta_0.png Graphic file (type png)
 <use AoA_22_delta_0.png>
-Package pdftex.def Info: AoA_22_delta_0.png  used on input line 1300.
+Package pdftex.def Info: AoA_22_delta_0.png  used on input line 1182.
 (pdftex.def)             Requested size: 112.74377pt x 134.13933pt.
-<RefPlan_AoA_22_Delta_0_UpperSurface_CP.png, id=550, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_22_Delta_0_UpperSurface_CP.png, id=531, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_22_Delta_0_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_22_Delta_0_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_22_Delta_0_UpperSurface_CP.png  used on in
-put line 1310.
+put line 1192.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1310--1311
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1192--1193
  []|[] 
  []
 
 File: RefPlan_AoA_8_Delta_10_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_8_Delta_10_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_8_Delta_10_UpperSurface_CP.png  used on in
-put line 1321.
+put line 1203.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1321--1322
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1203--1204
  []|[]| 
  []
 
-<AoA_18_Delta_-10.png, id=551, 4049.1275pt x 4542.9725pt>
+<AoA_18_Delta_-10.png, id=532, 4049.1275pt x 4542.9725pt>
 File: AoA_18_Delta_-10.png Graphic file (type png)
 <use AoA_18_Delta_-10.png>
-Package pdftex.def Info: AoA_18_Delta_-10.png  used on input line 1325.
+Package pdftex.def Info: AoA_18_Delta_-10.png  used on input line 1207.
 (pdftex.def)             Requested size: 112.74377pt x 126.43983pt.
 File: RefPlan_AoA_18_Delta_10_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_18_Delta_10_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_18_Delta_10_UpperSurface_CP.png  used on i
-nput line 1335.
+nput line 1217.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1335--1336
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1217--1218
  []|[] 
  []
 
 File: RefPlan_AoA_6_Delta_20_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_6_Delta_20_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_6_Delta_20_UpperSurface_CP.png  used on in
-put line 1345.
+put line 1227.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1345--1346
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1227--1228
  []|[]| 
  []
 
-<AoA_18_Delta_-20.png, id=552, 4101.3225pt x 4713.61pt>
+<AoA_18_Delta_-20.png, id=533, 4101.3225pt x 4713.61pt>
 File: AoA_18_Delta_-20.png Graphic file (type png)
 <use AoA_18_Delta_-20.png>
-Package pdftex.def Info: AoA_18_Delta_-20.png  used on input line 1349.
+Package pdftex.def Info: AoA_18_Delta_-20.png  used on input line 1231.
 (pdftex.def)             Requested size: 112.74377pt x 129.53477pt.
-<RefPlan_AoA_18_Delta_20_UpperSurface_CP.png, id=553, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_18_Delta_20_UpperSurface_CP.png, id=534, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_18_Delta_20_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_18_Delta_20_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_18_Delta_20_UpperSurface_CP.png  used on i
-nput line 1359.
+nput line 1241.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1359--1361
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1241--1243
  []|[]| 
  []
 
 File: RefPlan_AoA_8_Delta_35_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_8_Delta_35_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_8_Delta_35_UpperSurface_CP.png  used on in
-put line 1368.
+put line 1250.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1368--1369
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1250--1251
  []|[]| 
  []
 
-<AoA_14_Delta_-34.png, id=554, 3983.88374pt x 4675.4675pt>
+<AoA_14_Delta_-34.png, id=535, 3983.88374pt x 4675.4675pt>
 File: AoA_14_Delta_-34.png Graphic file (type png)
 <use AoA_14_Delta_-34.png>
-Package pdftex.def Info: AoA_14_Delta_-34.png  used on input line 1372.
+Package pdftex.def Info: AoA_14_Delta_-34.png  used on input line 1254.
 (pdftex.def)             Requested size: 112.74377pt x 132.26768pt.
-<RefPlan_AoA_14_Delta_35_UpperSurface_CP.png, id=555, 3292.3pt x 3167.835pt>
+<RefPlan_AoA_14_Delta_35_UpperSurface_CP.png, id=536, 3292.3pt x 3167.835pt>
 File: RefPlan_AoA_14_Delta_35_UpperSurface_CP.png Graphic file (type png)
 <use RefPlan_AoA_14_Delta_35_UpperSurface_CP.png>
 Package pdftex.def Info: RefPlan_AoA_14_Delta_35_UpperSurface_CP.png  used on i
-nput line 1382.
+nput line 1264.
 (pdftex.def)             Requested size: 131.53082pt x 126.5468pt.
 
-Overfull \hbox (17.9198pt too wide) in paragraph at lines 1382--1383
+Overfull \hbox (17.9198pt too wide) in paragraph at lines 1264--1265
  []|[] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[27]
+[23]
 
-LaTeX Warning: Text page 28 contains only floats.
+LaTeX Warning: Text page 24 contains only floats.
 
-[28 <./AoA_22_delta_0.png> <./RefPlan_AoA_22_Delta_0_UpperSurface_CP.png> <./Ao
+[24 <./AoA_22_delta_0.png> <./RefPlan_AoA_22_Delta_0_UpperSurface_CP.png> <./Ao
 A_18_Delta_-10.png> <./AoA_18_Delta_-20.png> <./RefPlan_AoA_18_Delta_20_UpperSu
 rface_CP.png> <./AoA_14_Delta_-34.png> <./RefPlan_AoA_14_Delta_35_UpperSurface_
-CP.png>]
-Overfull \hbox (5.0363pt too wide) in paragraph at lines 1422--1449
- [][] 
- []
-
-[29] [30] [31] (/tmp/tailplane-comments2-build/main.bbl
+CP.png>] [25] [26] (/tmp/tailplane-writing-audit/build/main.bbl
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 9.0pt on input line 1.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
@@ -2022,25 +2017,25 @@ LaTeX Font Info:    Font shape `T1/qhv/m/n' will be
 (Font)              scaled to size 8.09995pt on input line 37.
 LaTeX Font Info:    Font shape `T1/ntxtt/m/n' will be
 (Font)              scaled to size 9.0pt on input line 37.
- [32
+ [27
 
-] [33]) [34]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1534.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1534.
-
-(/tmp/tailplane-comments2-build/main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1534.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1534.
+] [28])
+[29]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1372.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1372.
+ (/tmp/tailplane-writing-audit/build/main.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1372.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1372.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 1135B5002CBDB470744712EBF25B2284;1250.
+(rerunfilecheck)             Checksum: <no file>.
  ) 
 Here is how much of TeX's memory you used:
- 30580 strings out of 481239
- 584867 string characters out of 5920377
- 853500 words of memory out of 5000000
- 44773 multiletter control sequences out of 15000+600000
- 651366 words of font info for 332 fonts, out of 8000000 for 9000
+ 30579 strings out of 481239
+ 584860 string characters out of 5920377
+ 855223 words of memory out of 5000000
+ 44777 multiletter control sequences out of 15000+600000
+ 651452 words of font info for 333 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  63i,24n,100p,823b,947s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc}{/usr/sh
@@ -2055,11 +2050,11 @@ ublic/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb
 /texlive/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/newtx/txmiaX.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/newtx/txsys.pfb>
-Output written on /tmp/tailplane-comments2-build/main.pdf (34 pages, 128743968 
-bytes).
+Output written on /tmp/tailplane-writing-audit/build/main.pdf (29 pages, 128722
+953 bytes).
 PDF statistics:
- 685 PDF objects out of 1000 (max. 8388607)
- 438 compressed objects within 5 object streams
- 100 named destinations out of 1000 (max. 500000)
+ 661 PDF objects out of 1000 (max. 8388607)
+ 420 compressed objects within 5 object streams
+ 93 named destinations out of 1000 (max. 500000)
  41851 words of extra memory for PDF output out of 42996 (max. 10000000)
 
