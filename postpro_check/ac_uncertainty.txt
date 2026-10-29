@@ -1,0 +1,3 @@
+N=11; delta=0 deg; |alpha|<=10 deg; unweighted linear fits
+x_AC=0.6426435971 m; propagated fit interval=+/-0.0010664688 m
+95% slope-fit intervals propagated without slope covariance; not a total measurement bound.

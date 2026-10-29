@@ -1,52 +1,39 @@
-Paper revision validation — 28 October 2026
-Baselines: 871f900 (before audit) and 1ba11a6 (before Comments 4).
+Comments 5 final revision validation — 29 October 2026
+Baseline for the revision and local diff: a32cef6.
 
-PASS: reversed-area equation/table/discussion and dependent references removed.
-PASS: all original field-incidence labels and all figure source file references
-are preserved (including multiplicity). No incidence selection was replaced.
-PASS: all original coefficient CSV hashes match figure_sources.json.
-PASS: numerical bodies of Tables 1, 2 and 3 are unchanged.
-PASS: existing audit.py and table3.py reproduce the lift extrema, aerodynamic
-centers, effectiveness values, uncertainty summaries and common-axis moments.
-Their outputs are saved in writing_audit_coefficients.txt and writing_audit_table3.txt.
+Scope: all Comments_5.txt points and analogous wording, transitions, self-
+attribution, repeated caveats and figure introductions throughout the manuscript.
+Physical interpretations remain, with conditional wording where appropriate.
+The previously agreed removal of reversed-area analysis is retained.
 
-PASS: 40 unique active labels and 34 cross-references resolve;
-25 cited bibliography keys exist.
-PASS: BibTeX, LaTeX draft passes and final pdflatex compilation.
-Final PDF (local): main_comments4_revised.pdf; 30 pages; no undefined references/citations,
-multiply defined labels or extracted double-question-mark references.
-PASS: source whitespace check (raw generated *.log files excluded).
+PASS: original figure-source paths and displayed field-incidence selections
+are unchanged, including multiplicity. Original scientific bitmaps unchanged.
+PASS: all coefficient CSV hashes match postpro_check/figure_sources.json.
+PASS: all numerical central values in Tables 1–3 are unchanged.
+The only table addition is the experimental AC-coordinate fit interval:
+x_AC=(0.6426 +/- 0.0011) m. Reproduction and self-check:
+  python3 postpro_check/ac_uncertainty.py
+  output: postpro_check/ac_uncertainty.txt
+The calculation uses the unweighted slope-ratio fit giving the existing central
+coordinate, 95% slope-fit half-widths, chord scaling and independent slopes.
+The text identifies this as fit uncertainty, not a total measurement bound.
 
-Visual checks: schematic (including Control label, b_s and 30-degree sweep arc),
-effectiveness table, regime summary and conclusions; numerical-only 35-degree
-labels checked in the topology source. The source bitmap files are unchanged.
-The regime table now fits the text width using tabularx.
-Nw=100 for all production solutions was explicitly confirmed by the author.
-The illustrative geometry coordinates give a 30-degree quarter-chord sweep.
+PASS: 39 unique active labels, 32 cross-references and 25 bibliography keys.
+PASS: bibliography rebuilt; clean paper and local LaTeX diff compile without
+undefined references/citations, multiply defined labels or extracted ?? markers.
+PASS: source whitespace check and exact agreement between paper sources and
+the snapshot used for the diff.
+PASS: visual checks of introduction transitions, enlarged two-line geometry
+label, AC-coordinate table/interval, averaging prose and diff markup.
 
-The audit report is retained locally as paper_writing_audit.txt. Source changes concern writing,
-notation, labels and verified bibliography metadata; no CFD, experimental record,
-coefficient CSV or original scientific raster figure was altered.
-Earlier reversal scripts and numerical evidence remain as provenance and are
-not an analysis used by the revised manuscript.
+Local artifacts (excluded from push):
+  main_comments5_revised.pdf — clean paper, 30 pages.
+  main_diff_a32cef6_comments5.pdf — a32cef6 versus current revision, 32 pages.
+  Comments_5_response.txt — point-by-point assessment and explanations.
+Comments, replies, PDFs, diff sources and diff assets remain local.
 
-Remaining notices: six conference references omit page ranges; DOI/paper
-identifiers remain. No ranges were fabricated. Existing field-image overfull-box
-and float warnings remain. This audit does not independently reproduce the
-experimental reductions or establish the causal effect of the tunnel floor.
-
-Comments 4 and interpretation revision
-PASS: abstract range detail removed; methods retain actual settings.
-PASS: complete two-line Control deflection label uses one font and size.
-PASS: tunnel-quality paragraph restored; baseline introduction deduplicated.
-PASS: last-interval denominators stated as 4*pi/180 and 5*pi/180 radians.
-Physical interpretations of vortical lift retention, loading redistribution,
-control-surface separation and root-boundary effects restored conditionally.
-PASS: figure source paths, field incidences and Tables 1–3 unchanged from 1ba11a6.
-PASS: citation keys/order and bibliography unchanged; existing .bbl reused.
-PASS: clean paper and diff compile without unresolved/multiply defined references.
-PASS: visual checks of complete geometry label, baseline interpretation text,
-diff abstract and old/new regime tables.
-Local diff: main_diff_871f900_comments4.pdf, 41 pages; baseline 871f900.
-Comments, replies, PDFs, diff sources and assets are excluded from the commit.
-No new CFD solutions or experimental reductions were performed.
+Remaining build notices: six conference references omit page ranges; their
+DOIs/paper identifiers are retained. Existing field-image overfull-box/float
+warnings remain. No new CFD solutions or experimental reductions were run;
+the work revises the paper and reproduces the stated fit interval from existing
+coefficient data. Covariance of the fitted force and moment slopes is unavailable.
